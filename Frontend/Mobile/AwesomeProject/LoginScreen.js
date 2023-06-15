@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, Image, StyleSheet } from 'react-native';
-import { AppLoading } from 'expo';
-import { Font } from 'expo-font';
-
-const fetchFonts = () => {
-  return Font.loadAsync({
-    'RobotoCondensed-Bold': require('./assets/fonts/RobotoCondensed-Bold.ttf'),
-    'RobotoCondensed-Italic': require('./assets/fonts/RobotoCondensed-Italic.ttf'),
-  });
-};
+import SignUpScreen from './SignUpScreen';
 
 const LoginScreen = ({ userType }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [dataLoaded, setDataLoaded] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
 
   const signIn = async () => {
     try {
@@ -41,40 +33,43 @@ const LoginScreen = ({ userType }) => {
     }
   };
 
-  if (!dataLoaded) {
-    return (
-      <AppLoading
-        startAsync={fetchFonts}
-        onFinish={() => setDataLoaded(true)}
-      />
-    );
-  }
+  const navigateToSignUp = () => {
+    setShowSignUp(true);
+  };
 
   return (
     <View style={styles.container}>
-      <Image source={require('./assets/medecin.png')} style={styles.logo} />
-      <Text style={styles.title}>Login</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-        />
-      </View>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-        />
-      </View>
-      <TouchableOpacity onPress={signIn} style={styles.signInButton}>
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
-      <Text style={styles.signUpText}>Sign up</Text>
+      {showSignUp ? (
+        <SignUpScreen />
+      ) : (
+        <>
+          <Image source={require('./assets/medecin.png')} style={styles.logo} />
+          <Text style={styles.title}>Login</Text>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Email (RPPS)"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Password"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
+          <TouchableOpacity onPress={signIn} style={styles.signInButton}>
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={navigateToSignUp}>
+            <Text style={styles.signUpText}>Sign up</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
 };
@@ -96,7 +91,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     fontWeight: 'bold',
-    fontFamily: 'RobotoCondensed-Bold',
+    fontFamily: 'Roboto Condensed',
     marginBottom: 20,
   },
   inputContainer: {
@@ -109,7 +104,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 300,
     borderWidth: 1,
-    borderColor: '#CBE4DE', // Change the color of the border if desired
+    borderColor: '#CBE4DE',
   },
   signInButton: {
     marginTop: 15,
@@ -122,7 +117,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: 18,
-    fontFamily: 'RobotoCondensed-Italic',
     textAlign: 'center',
   },
   signUpText: {

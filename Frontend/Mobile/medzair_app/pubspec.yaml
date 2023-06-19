@@ -63,6 +63,7 @@ flutter:
       - images/medecin.png
       - images/signup.gif
       - images/signup64.png
+      - images/logo.e27ee17f.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

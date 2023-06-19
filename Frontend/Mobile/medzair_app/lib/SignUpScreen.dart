@@ -18,9 +18,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
   String? selectedSpecialty;
 
   List<String> specialties = [
-    'Specialty 1',
-    'Specialty 2',
-    'Specialty 3',
+    'anesthésiologie',
+    'cardiologie',
+    'dermatologie',
+    ' endocrinologie', 
+     'gastro-entérologie',
+     'génétique médicale',
+      'gériatrie',
+       'hématologie', 
+      'immunologie clinique et allergie',
+      'néphrologie',
+       'neurologie', 
+      'pédiatrie',  
+      'pneumologie', 
+     'rhumatologie',
     // Add more specialties as needed
   ];
 
@@ -107,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Password',
+                  hintText: 'Mot de pass',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
@@ -116,7 +127,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Confirm Password',
+                  hintText: 'Confirmation de mot de pass',
                   border: OutlineInputBorder(),
                 ),
                 obscureText: true,
@@ -133,7 +144,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
-                  hintText: 'Birthday',
+                  hintText: 'Date de naissance',
                   border: OutlineInputBorder(),
                 ),
                 controller: birthdayController,
@@ -158,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 10),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
-                  hintText: 'Specialty',
+                  hintText: 'Specialter',
                   border: OutlineInputBorder(),
                 ),
                 value: selectedSpecialty,
@@ -189,7 +200,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               TextButton(
                 onPressed: onCancel,
                 child: Text(
-                  'Cancel',
+                  'Annuler',
                   style: TextStyle(
                     color: Theme.of(context).primaryColor,
                     fontWeight: FontWeight.bold,

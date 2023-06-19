@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medzair_app/SplashScreen.dart';
 import './LoginScreen.dart';
 
 void main() {
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey),
         useMaterial3: true,
       ),
-      home: LoginScreen(userType: '',),
+      home: SplashScreen(),
     );
   }
 }

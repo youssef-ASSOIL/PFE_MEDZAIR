@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "806510731200",
+    "project_id": "medzairapp",
+    "storage_bucket": "medzairapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806510731200:android:b87c35fedcc9ba6f0ff225",
+        "android_client_info": {
+          "package_name": "com.example.medzair_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806510731200-lgvs1q06n4ain06e5ev2iga33srf0748.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApZroenClkaE8edbvuL0Kly1DHMwl0Ht0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806510731200-lgvs1q06n4ain06e5ev2iga33srf0748.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

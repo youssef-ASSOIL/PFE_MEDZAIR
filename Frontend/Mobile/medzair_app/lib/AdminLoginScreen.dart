@@ -23,7 +23,7 @@ class AdminSignInScreen extends StatelessWidget {
             SizedBox(height: 20.0),
             TextFormField(
               decoration: InputDecoration(
-                labelText: 'Username',
+                labelText: 'Gmail',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -37,9 +37,9 @@ class AdminSignInScreen extends StatelessWidget {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                // Perform sign-in logic for administrators
-              },
+              onPressed: (){
+
+              } ,
               child: Text('Sign In'),
             ),
           ],

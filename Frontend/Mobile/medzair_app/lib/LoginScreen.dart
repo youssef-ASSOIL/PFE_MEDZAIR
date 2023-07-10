@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medzair_app/medecin/medecin_homepage.dart';
 import './SignUpScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -77,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 16.0,vertical: 120),
+          padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 120),
           children: <Widget>[
             Image.asset(
               'images/medecin.png',
@@ -115,7 +116,15 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              onPressed: signIn,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        const HomeMedecin(), // Replace with the appropriate route for the MissionsPage
+                  ),
+                );
+              },
               child: Text('Sign In'),
             ),
             SizedBox(height: 20),

@@ -75,4 +75,15 @@ class Medecin {
   String getRpps() {
     return rpps;
   }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'lastname': lastname,
+      'idContact': idContact,
+      'tele': tele,
+      'email': email,
+      'rpps': rpps,
+    };
+  }
 }

@@ -120,6 +120,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(height: 10),
               TextField(
                 decoration: InputDecoration(
+                  hintText: 'Nom',
+                  border: OutlineInputBorder(),
+                ),
+                
+              ),
+              SizedBox(height: 10),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Prenom',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              SizedBox(height: 10),
+              TextField(
+                decoration: InputDecoration(
                   hintText: 'Mot de pass',
                   border: OutlineInputBorder(),
                 ),

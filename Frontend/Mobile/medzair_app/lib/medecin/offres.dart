@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:medzair_app/medecin/missions.dart'; // Import the MissionsPage if not already imported
+import 'package:flutter/material.dart'; // Import the MissionsPage if not already imported
 
 class OffresPage extends StatefulWidget {
   const OffresPage({Key? key}) : super(key: key);
@@ -31,101 +30,14 @@ class _OffresPageState extends State<OffresPage> {
       body: ListView(
         padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
         children: [
-          Row(
-            children: [
-              const CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('images/medecin.png'),
-                backgroundColor: Color.fromARGB(255, 130, 231, 240),
-              ),
-              const SizedBox(width: 8),
-              const Spacer(),
-              IconButton(
-                onPressed: () {
-                  // Handle notifications icon press
-                },
-                icon: const Icon(Icons.timer),
-              ),
-              IconButton(
-                onPressed: () {
-                  // Handle appointments icon press
-                },
-                icon: const Icon(Icons.notifications),
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          const Center(
-            child: Text(
-              'Welcome, Dr. John Doe',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          const SizedBox(height: 36),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Today\'s Appointments',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                        const  MissionsPage(), // Replace with the appropriate route for the MissionsPage
-                    ),
-                  );
-                },
-                child: Text('View All'),
-                style: TextButton.styleFrom(
-                  primary: Theme.of(context).primaryColor,
-                ),
-              ),
-            ],
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            padding: EdgeInsets.zero, // Remove padding between text and cards
-            itemCount: 2, // Replace with actual appointment count
-            itemBuilder: (context, index) {
-              // Replace with appointment data
-              final appointmentTime =
-                  DateTime.now().add(Duration(hours: index));
-              final patientName = 'Hopital ${index + 1}';
-
-              return Card(
-                elevation: 2,
-                child: ListTile(
-                  leading: CircleAvatar(
-                    child: Text(patientName[0]),
-                  ),
-                  title: Text(patientName),
-                  subtitle: Text('Time: ${appointmentTime.toString()}'),
-                  onTap: () {
-                    // Handle appointment tap
-                  },
-                ),
-              );
-            },
-          ),
           SizedBox(height: 16),
           const Text(
-                'Offres',
-                style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+            'Offres',
+            style: TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           Center(
             child: ToggleButtons(
               isSelected: _isSelected,

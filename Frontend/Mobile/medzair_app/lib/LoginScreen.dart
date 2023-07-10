@@ -114,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
               obscureText: true,
               controller: passwordController,
             ),
-            SizedBox(height: 20),
+             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -125,12 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 );
               },
-              child: Text('Sign In'),
+              child: const Text('Sign In'),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             TextButton(
               onPressed: navigateToSignUp,
-              child: Text('Sign up'),
+            child: const Text('Sign up'),
             ),
           ],
         ),

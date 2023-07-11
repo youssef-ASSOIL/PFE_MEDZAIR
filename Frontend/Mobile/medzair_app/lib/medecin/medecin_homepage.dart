@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medzair_app/medecin/disponibilite.dart';
+import 'package:medzair_app/medecin/homemedecin.dart';
 import 'package:medzair_app/medecin/missions.dart';
 import 'package:medzair_app/medecin/offres.dart';
 import 'package:medzair_app/medecin/profile.dart';
@@ -21,6 +22,7 @@ class _HomeMedecinState extends State<HomeMedecin> {
   }
 
   final List<Widget> _pages = const [
+    Dashboard(),
     OffresPage(), // Replace with your Offres page implementation
     DisponibilitesPage(), // Replace with your Disponibilités page implementation
     MissionsPage(), // Replace with your Missions page implementation
@@ -32,6 +34,10 @@ class _HomeMedecinState extends State<HomeMedecin> {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_filled),
+            label: 'Home',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_search_sharp),
             label: 'Offres',

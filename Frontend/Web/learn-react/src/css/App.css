@@ -1,0 +1,61 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2F8F9D;
+  padding: 10px;
+  box-sizing: border-box; /* Add box-sizing property */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+.logo img {
+  width: 60px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.meConnecterButton {
+  background-color: #E8F9FD;
+  padding: 10px;
+  border: 2px solid #E8F9FD;
+  border-radius: 10px;
+  color: #2F8F9D;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.company-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  margin: 0; /* Add margin 0 to reset default margin */
+  align-items: center; /* Add align-items property */
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links li:last-child {
+  margin-right: 0; /* Remove right margin for the last li */
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+}
+
+.nav-links li a:hover {
+  color: #ccc;
+}

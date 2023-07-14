@@ -1,27 +1,29 @@
 const express = require('express');
+const path = require('path');
 const app = express();
-const { fetchMedecinData, addMedecinData } = require('./Models/Hospital.js');
+const port = 3000;
 
-const admin = require("firebase-admin");
-const credentials = require("./serviceAccountKey.json");
+app.use(express.static(path.join(__dirname, '../Frontend/Web/learn-react/public')));
 
-// Example usage: Add a medecin to the collection
-const medecinData = {
-  name: 'Dr. John Doe',
-  specialization: 'Cardiology',
-  address: '123 Main Street',
-};
+app.get('/api/login', (req, res) => {
+  try {
+    // Handle the login request
+    // Verify the user credentials using Firebase authentication
+    // ...
 
-admin.initializeApp({
-  credential: admin.credential.cert(credentials),
-  // databaseURL: 'https://medzairapp-default-rtdb.europe-west1.firebasedatabase.app/'
+    // Redirect the user to the dashboard
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
-const db = admin.firestore();
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-const Port = process.env.Port || 8080;
-app.listen(Port, () => {
-  console.log(`listening on port ${Port}`);
-  fetchMedecinData();
-  addMedecinData(medecinData);
+
+app.get('/dashboard', (req, res) => {
+  // Render the dashboard page or send a response as needed
+  res.send('Dashboard Page');
+});
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

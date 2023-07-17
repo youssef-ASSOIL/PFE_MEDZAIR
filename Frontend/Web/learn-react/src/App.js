@@ -1,26 +1,43 @@
 import React, { useState } from 'react';
-import './css/App.css'; // Import the CSS file for Navbar styles
-import logo from './images/logo.png'; // Import the logo image
-import MyNewForm from './MyNewForm'; // Import the MyNewForm component
+import './css/App.css';
+import logo from './images/logo.png';
+import MyNewForm from './MyNewForm';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import Sidebar  from './Sidebar';
 
 const App = () => {
+
   const [showForm, setShowForm] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const handleConnectClick = (event) => {
-    event.preventDefault(); // Prevent the default anchor tag behavior
+    event.preventDefault();
     setShowForm(true);
   };
-
+  
+ 
+  const handleMenuClick = () => {
+    setShowSidebar(!showSidebar);
+  };
   return (
     <div>
       <nav className="navbar">
+      
+        <div className="menu-icon" onClick={handleMenuClick}>
+          <FontAwesomeIcon icon={faBars} />
+        </div>
         <div className="logo">
-          <img src={logo} alt="Company Logo" /> {/* Use the imported logo image */}
+          <img src={logo} alt="Company Logo" />
           <span className="company-name">MedZair</span>
         </div>
         <ul className="nav-links">
-          <li><a href="/">Nos Clients</a></li>
-          <li><a href="/">Contacter nous</a></li>
+          <li>
+            <a href="/">Nos Clients</a>
+          </li>
+          <li>
+            <a href="/">Contacter nous</a>
+          </li>
           <li>
             <button className="meConnecterButton" onClick={handleConnectClick}>
               Me connecter
@@ -28,9 +45,17 @@ const App = () => {
           </li>
         </ul>
       </nav>
+      
+      <Sidebar
+    open={showSidebar}
+    onClose={() => setShowSidebar(false)} 
+  />
+
       {showForm && <MyNewForm />}
+
     </div>
   );
-};
+}
+
 
 export default App;

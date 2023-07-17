@@ -4,13 +4,15 @@
   align-items: center;
   background-color: #2F8F9D;
   padding: 10px;
-  box-sizing: border-box; /* Add box-sizing property */
+  box-sizing: border-box;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  flex-shrink: 0; /* Prevent logo from shrinking */
+  flex-shrink: 0;
+  margin-right: 10px; /* Added margin-right */
+  margin-left: -55%; 
 }
 
 .logo img {
@@ -38,8 +40,8 @@
 .nav-links {
   list-style: none;
   display: flex;
-  margin: 0; /* Add margin 0 to reset default margin */
-  align-items: center; /* Add align-items property */
+  margin: 0;
+  align-items: center;
 }
 
 .nav-links li {
@@ -47,7 +49,7 @@
 }
 
 .nav-links li:last-child {
-  margin-right: 0; /* Remove right margin for the last li */
+  margin-right: 0;
 }
 
 .nav-links li a {
@@ -58,4 +60,13 @@
 
 .nav-links li a:hover {
   color: #ccc;
+}
+
+.menu-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+  font-size: 24px;
+  margin-right: 5px;/* Adjusted margin-right value */
 }

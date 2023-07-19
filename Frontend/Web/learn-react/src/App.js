@@ -1,29 +1,29 @@
+
 import React, { useState } from 'react';
 import './css/App.css';
 import logo from './images/logo.png';
 import MyNewForm from './MyNewForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
-import Sidebar  from './Sidebar';
+import Sidebar from './Barside';
 
 const App = () => {
-
   const [showForm, setShowForm] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+
 
   const handleConnectClick = (event) => {
     event.preventDefault();
     setShowForm(true);
   };
-  
- 
+
   const handleMenuClick = () => {
     setShowSidebar(!showSidebar);
   };
+
   return (
     <div>
       <nav className="navbar">
-      
         <div className="menu-icon" onClick={handleMenuClick}>
           <FontAwesomeIcon icon={faBars} />
         </div>
@@ -45,17 +45,17 @@ const App = () => {
           </li>
         </ul>
       </nav>
-      
-      <Sidebar
-    open={showSidebar}
-    onClose={() => setShowSidebar(false)} 
-  />
+
+      <Sidebar 
+        showSidebar={showSidebar}
+        setShowSidebar={setShowSidebar}  
+      />
+
+     
 
       {showForm && <MyNewForm />}
-
     </div>
   );
-}
-
+};
 
 export default App;

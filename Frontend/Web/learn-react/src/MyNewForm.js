@@ -50,6 +50,7 @@ class MyNewForm extends Component {
         );
       case "logIn":
         return (
+          
           <form className='Form'>
             <h2 className='Form__heading'>Bienvenue !</h2>
             <fieldset className='Form__fieldset'>

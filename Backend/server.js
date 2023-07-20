@@ -1,14 +1,16 @@
 const { initializeApp } = require('firebase/app');
 const { getAuth, onAuthStateChanged } = require('firebase/auth');
-const { getFirestore, collection, getDocs, getDoc } = require('firebase/firestore');
+const { getFirestore, collection, getDocs, getDoc ,addDoc} = require('firebase/firestore');
 
 // The rest of your code remains the same...
 
 const express = require('express');
 const path = require('path');
 const app = express();
+const cors = require('cors');
 const port = 3001;
-
+// Use cors middleware to enable CORS for all routes
+app.use(cors());
 
 const firebaseApp= initializeApp({
   apiKey: "AIzaSyADwW3N6qrFVVAtpGCbhjETuFVTdYyei-o",
@@ -24,6 +26,29 @@ const auth=getAuth(firebaseApp);
 const db=getFirestore(firebaseApp);
 const hospitalCol = collection(db,'Hospital');
 
+// Middleware to parse incoming JSON data
+app.use(express.json());
+
+// Handle form data submission
+app.post('/submitFormData', async (req, res) => {
+  try {
+    // Get the form data from the request body
+    const formData = req.body;
+    console.log('Received form data:', formData);
+
+    // Add the data to the "Hospital" collection in Firestore
+    
+    await addDoc(collection(db, "Hospital" ), formData);
+    console.log('Data added to Firestore successfully!');
+
+    // Respond to the client with a success message or other data if needed
+    res.status(200).json({ message: 'Data added to Firestore successfully!' });
+  } catch (error) {
+    console.error('Error adding data to Firestore:', error);
+    // Handle the error and respond with an error message to the client
+    res.status(500).json({ error: 'Failed to add data to Firestore' });
+  }
+});
 
 // Fetch all documents from the "Hospital" collection
 const getHospitalData = async () => {

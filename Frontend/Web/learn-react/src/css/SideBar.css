@@ -1,57 +1,149 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap");
+
+:root {
+  --primary-color: #2F8F9D;
+  --secondary-color: #3BACB6;
+  --primary-text-color: #2c3e50;
+  --top-nav-height: 70px;
+  --margin: 20px;
+  --sidebar-width: 90px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
+  background: #b3e8e5; /* Changed the background color */
+  overflow: hidden;
+}
+
+.navbar {
+  background: var(--secondary-color);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--top-nav-height);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menu-icon {
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.company-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links li:last-child {
+  margin-right: 0;
+}
+
+.nav-links a {
+  color: var(--primary-text-color);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: #2F8F9D;
+}
+
+.meConnecterButton {
+  background: var(--primary-color);
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #f1f1f1;
-    z-index: 100;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .sidebar.show {
-    transform: translateX(0);
-  }
-  
-  .sidebar-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #ccc;
-  }
-  
-  .sidebar-header h3 {
-    margin: 0;
-    font-size: 20px;
-    color: #333;
-  }
-  
-  .sidebar-links {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .sidebar-links li {
-    margin-bottom: 10px;
-  }
-  
-  .sidebar-links li a {
-    display: block;
-    padding: 10px;
-    color: #333;
-    text-decoration: none;
-    transition: background-color 0.3s ease-in-out;
-  }
-  
-  .sidebar-links li a:hover {
-    background-color: #ddd;
-  }
-  
-  .sidebar-header .faTimes {
-    cursor: pointer;
-    color: #333;
-  }
-  
+  position: fixed;
+  left: 0;
+  top: var(--top-nav-height);
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: #b3e8e5;
+  border-bottom-left-radius: 20px;
+  transition: 0.4s;
+}
+
+
+.sidebar ul li a {
+  display: block;
+  color: var(--primary-text-color);
+  font-size: 1.3rem;
+  padding: 1rem;
+  font-weight: 600;
+  margin-bottom: 1px;
+}
+
+.sidebar ul li a.active {
+  color: #2F8F9D;;
+}
+
+.sidebar ul li:hover {
+  background: rgba(0, 0, 0, 0.1);
+  border-left: var(--primary-color) solid 5px;
+}
+
+.sidebar ul li a span.icon {
+  margin-right: 10px;
+  display: inline-block;
+}
+
+.sidebar ul li a span.title {
+  display: inline-block;
+}
+
+.sidebar.collapse {
+  width: 90px;
+}
+
+.sidebar.collapse ul li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar.collapse ul li a span.icon {
+  margin: 0;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.sidebar.collapse ul li a span.title {
+  font-size: 0.6rem;
+  text-align: center;
+}

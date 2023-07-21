@@ -1,33 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import "./css/SideBar.css"
-const Sidebar = ({ showSidebar, setShowSidebar }) => {
+import React from "react";
+import { Link } from "react-router-dom";
+import "../css/SideBar.css";
 
+const nav = [
+  { text: "Home", link: "/", icon: "home" },
+  { text: "About", link: "/about", icon: "box" },
+  { text: "Movies", link: "/movies", icon: "tv", active: true },
+  { text: "Contacts", link: "/contact", icon: "user" },
+  { text: "Bobliothèque", link: "/library", icon: "book" },
+  { text: "Cartographie", link: "/map", icon: "map-signs" },
+  { text: "Nature", link: "/nature", icon: "leaf" },
+];
+
+const Sidebar = ({ toggleBtn }) => {
   return (
-    <aside className={`sidebar ${showSidebar ? 'show' : ''}`}>
-      <div className="sidebar-header">
-        <h3>Menu</h3>
-        <FontAwesomeIcon 
-          icon={faTimes}
-          onClick={() => setShowSidebar(false)} 
-        />
-      </div>
-
-      <ul className="sidebar-links">
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/about">About</Link> 
-        </li>
-        <li>
-          <Link to="/contact">Contact</Link>
-        </li>
+    <div className={`sidebar ${toggleBtn ? "collapse" : ""}`} data-simplebar>
+      <ul>
+        {nav.map((item) => (
+          <li key={item.text}>
+            <Link to={item.link} className={item.active ? "active" : ""}>
+              <span className="icon">
+                <i className={`fas fa-${item.icon}`} />
+              </span>
+              <span className={`title ${toggleBtn ? "collapsed" : ""}`}>{item.text}</span>
+            </Link>
+          </li>
+        ))}
       </ul>
-    </aside>
+    </div>
   );
-}
+};
 
 export default Sidebar;

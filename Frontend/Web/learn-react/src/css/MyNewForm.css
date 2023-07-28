@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Jura:400');
 
+
 * {
   font-weight: 400;
 }
@@ -12,7 +13,7 @@ body {
 
 .Form {
     margin: auto;
-    margin-top: 50px; /* Add margin on top */
+    margin-top: 140px; /* Add margin on top */
     max-width: 400px;
     padding: 20px;
     background-color: #fff;

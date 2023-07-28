@@ -1,34 +1,116 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #2F8F9D;
-    padding: 10px;
-    box-sizing: border-box;
+
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap");
+
+  :root {
+    --primary-color: #2F8F9D;
+    --secondary-color: #3BACB6;
+    --primary-text-color: #B3E8E5;
+    --top-nav-height: 70px;
+    --margin: 20px;
+    --sidebar-width: 90px;
   }
   
-  .logo img {
-    /* width: 60px;
-    height: 50px;
-    margin-right: 10px; */
+  /* Global CSS Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+  }
   
+  body {
+    background: #e0e0e0;
+    overflow: hidden;
+  }
+  
+  /* Navbar Styles */
+  .navbar {
+    display: flex;
+    height: var(--top-nav-height);
+    justify-content: space-between;
+    align-items: center;
+    background: var(--primary-color);
+    border-top-left-radius: var(--margin);
+    border-top-right-radius: var(--margin);
+    position: fixed;
+    top: var(--margin);
+    right: var(--margin);
+    left: var(--margin);
+    transition: all 0.3s ease;
+  }
+  
+  .navbar .brand {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Navbar.css */
+
+
+  
+  .navbar .brand .hamburger {
+    height: 100%;
+    width: 70px;
+    cursor: pointer;
+    padding: 15px;
+  }
+  
+  .navbar .brand .hamburger div {
     width: 100%;
     height: 4px;
     background: #ffffff;
     border-radius: 7px;
     margin: 7px 0;
   }
-.logo {
-    display: flex;
-    align-items: center;
-    flex-shrink: 0;
-    margin-right: 10px; /* Added margin-right */
-    margin-left: -55%; 
   
+  .navbar .left i {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 1.2rem;
+    color: #ffffff;
+    border-radius: 50%;
+    border: 1px solid #ffffff;
+    margin: 0 15px;
+    cursor: pointer;
   }
+  
+  .navbar .left i:hover {
+    color: var(--primary-color);
+    background: #ffffff;
+  }
+  
+  .navbar .sidebar-nav-links { /* Renamed the class to match the CSS styles */
+    list-style: none;
+    display: flex;
+    margin: 0;
+    align-items: center;
+  }
+  
+  .navbar .sidebar-nav-links li {
+    margin-right: 20px;
+  }
+  
 
 
-.meConnecterButton {
+  .navbar .sidebar-nav-links li:last-child {
+    margin-right: 0;
+  }
+  
+  .navbar .sidebar-nav-links li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 16px;
+  }
+  
+  .navbar .sidebar-nav-links li a:hover {
+    color: #ccc;
+  }
+  
+  .meConnecterButton {
     background-color: #E8F9FD;
     padding: 10px;
     border: 2px solid #E8F9FD;
@@ -38,42 +120,45 @@
     cursor: pointer;
   }
   
-  .company-name {
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-  }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    align-items: center;
-  }
-  
-  .nav-links li {
-    margin-right: 20px;
-  }
-  
-  .nav-links li:last-child {
-    margin-right: 0;
-  }
-  
-  .nav-links li a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 16px;
-  }
-  
-  .nav-links li a:hover {
-    color: #ccc;
-  }
-  
-  .menu-icon {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    color: #fff;
-    font-size: 24px;
-    margin-right: 5px;/* Adjusted margin-right value */
-  }
+  /* Navbar.css */
+.navbar .brand .logo {
+  width: 100px; /* Update the logo width to your desired size */
+  height: 80px; /* Update the logo height to your desired size */
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .brand .logo a {
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+img.logo-img {
+  width: 60px;
+  height: 51px;
+}
+
+
+ul.navbar-links {
+  display: flex;
+  align-items: center; /* Vertically center the links */
+  margin: 20px;
+}
+
+ul.navbar-links > * {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  font-size: 18px; /* Increase the font size */
+  transition: color 0.3s ease; /* Add a transition for smooth color change */
+}
+
+ul.navbar-links > *:hover {
+  color: #ccc; /* Hover color */
+}

@@ -3,101 +3,28 @@
 :root {
   --primary-color: #2F8F9D;
   --secondary-color: #3BACB6;
-  --primary-text-color: #2c3e50;
+  --primary-text-color: #B3E8E5;
   --top-nav-height: 70px;
   --margin: 20px;
   --sidebar-width: 90px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
-  box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
-}
-
-body {
-  background: #b3e8e5; /* Changed the background color */
-  overflow: hidden;
-}
-
-.navbar {
-  background: var(--secondary-color);
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--top-nav-height);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.menu-icon {
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-}
-
-.logo img {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-}
-
-.company-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-}
-
-.nav-links li {
-  margin-right: 20px;
-}
-
-.nav-links li:last-child {
-  margin-right: 0;
-}
-
-.nav-links a {
-  color: var(--primary-text-color);
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.nav-links a:hover {
-  color: #2F8F9D;
-}
-
-.meConnecterButton {
-  background: var(--primary-color);
-  color: #fff;
-  font-size: 1rem;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
 .sidebar {
   position: fixed;
-  left: 0;
-  top: var(--top-nav-height);
-  bottom: 0;
-  width: var(--sidebar-width);
-  background: #b3e8e5;
+  left: var(--margin);
+  bottom: var(--margin);
+  top: 90px;
+  width: 220px;
+  background: var(--secondary-color);
   border-bottom-left-radius: 20px;
   transition: 0.4s;
 }
 
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
 .sidebar ul li a {
   display: block;
@@ -109,7 +36,7 @@ body {
 }
 
 .sidebar ul li a.active {
-  color: #2F8F9D;;
+  color: var(--primary-color);
 }
 
 .sidebar ul li:hover {

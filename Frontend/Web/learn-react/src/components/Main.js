@@ -1,14 +1,20 @@
-import React from 'react';
-import logo from '../images/logo.png';
-import "../css/Main.css";
+import React, { useState } from 'react';
+import logo from '../images/logo.png'; // Correct the path to the logo image.
+import '../css/Main.css'; // Correct the path to the Main.css file.
+import Sidebar from './Barside'; // Correct the import path for the Sidebar component.
+import Navbar from './Navbar'; // Correct the import path for the Navbar component.
 
-export default function Main() {
+const Main = () => {
+  const [toggleBtn, setToggleBtn] = useState(true);
+  const toggle = () => setToggleBtn((val) => !val);
+  
   return (
-    <div className="main-container">
-      <img src={logo} alt="Company Logo" />
-      <div className="centered-content">
-        Rejoignez le réseau d’un établissement de santé et postulez à ses missions de remplacement
-      </div>
+    <div className="top-wrapper">
+      <Navbar setToggle={toggle} />
+      <Sidebar toggleBtn={toggleBtn} />
+      <div className="content-principale"></div>
     </div>
   );
-}
+};
+
+export default Main;

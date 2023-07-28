@@ -1,1 +1,11 @@
 
+body{
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  
+}

@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/MyNewForm.css";
 import UserNotFound from "./UserNotFound"; 
-
 import axios from "axios";
+import TableMedcinCalls from "./TableMedcinCalls";
 
 export default function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  
   const SignInUserCheck = (e) => {
     e.preventDefault();
 
@@ -27,8 +27,7 @@ export default function SignIn() {
       .post("/signIn", { email, password })
       .then((response) => {
         console.log(response.data); // You can handle the response here if needed
-        // Redirect the user to a different page upon successful sign-in
-        navigate("/dashboard");
+        navigate("/TableMedcinCalls");
       })
       .catch((error) => {
         console.log(error.response.data);

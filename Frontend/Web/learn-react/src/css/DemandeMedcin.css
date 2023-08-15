@@ -1,0 +1,43 @@
+body{
+    margin: 100px;
+    margin-left: 200px;
+    text-align: center;
+}
+
+  @keyframes flowAnimation {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 100% 100%;
+    }
+  }
+  
+  .content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+  }
+  /* Add this to your DemandeMedcin.css */
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .MuiButton-containedPrimary {
+    /* Styling for the "Demande Medcin" button */
+    background-color: #1976d2; /* Your preferred color */
+    color: white;
+  }
+  
+  .MuiButton-outlinedSecondary {
+    /* Styling for the "Cancel" button */
+    border-color: #f44336; /* Your preferred color */
+    color: #f44336; /* Your preferred color */
+  }
+  

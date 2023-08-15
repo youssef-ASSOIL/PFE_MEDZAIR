@@ -1,0 +1,140 @@
+/*.allTable {
+    margin-top: 100px;
+    margin-left: 120px; 
+    margin-right: 10px;
+    border: 10px solid f2f2f2;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    display: flex;*/ /* Add display flex to create a flex container */
+ /*   flex-direction: column; /* Align children vertically */
+ /* }
+  
+  .allTable > h1 {
+    margin-left: auto; /* Move the heading to the right */
+  /*  margin-right: auto;
+    align-self: center; /* Center the heading horizontally */
+ /* }
+  
+  .dashboards {
+    display: flex; /* Add display flex to create a flex container */
+  /*  flex-wrap: wrap; /* Allow the dashboards to wrap to the next line on small screens */
+   /* justify-content: center; /* Center the items horizontally */
+   /* gap: 20px; /* Add some space between the dashboards */
+  /*}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  .allTable>h1{
+    margin-left: 30%;
+  }
+ 
+  .table th,
+  .table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  
+  .cellWrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+  }
+  
+  .status {
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .status.Approved {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.151);
+  }
+  
+  .status.Pending {
+    color: goldenrod;
+    background-color: rgba(189, 189, 3, 0.103);
+  }
+*/
+  /* Update your TableMedcinCall.css */
+/* Update your TableMedcinCall.css */
+.allTable {
+  margin: 50px auto;
+  width: 600px;
+  margin-left: -80px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+
+.allTable > h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+  color: #555;
+  text-align: left;
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+}

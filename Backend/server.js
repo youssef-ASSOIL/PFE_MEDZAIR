@@ -28,6 +28,7 @@ const firebaseApp = initializeApp({
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const hospitalCol = collection(db, "Hospital");
+const medecinCol = collection(db, "Medecin");
 
 const validateSignInCredentials = (req, res, next) => {
   const { email, password } = req.body;
@@ -86,6 +87,43 @@ onAuthStateChanged(auth, (user) => {
     console.log("logged in");
   } else {
     console.log("no user");
+  }
+});
+
+const getMedecinData = async () => {
+  try {
+    const snapshot = await getDocs(medecinCol);
+    const data = [];
+    snapshot.forEach((doc) => {
+      const medecinData = doc.data();
+      data.push({
+        id: doc.id,
+        name: medecinData.name || '', // Ensure these fields exist and provide a default value if they are missing
+        lastname: medecinData.lastname || '', // Use the correct field names and provide default values if needed
+        speciality: medecinData.speciality || '', // Use the correct field name
+        img: medecinData.imagePath || '',
+        date: new Date().toDateString(),
+        amount: 0,
+        method: "N/A",
+        status: "N/A",
+      });
+    });
+    return data;
+  } catch (error) {
+    console.error("Error fetching medecin data:", error);
+    return [];
+  }
+};
+
+
+
+app.get("/getMedecinData", async (req, res) => {
+  try {
+    const medecinData = await getMedecinData();
+    res.status(200).json(medecinData);
+  } catch (error) {
+    console.error("Error sending medecin data:", error);
+    res.status(500).json({ error: "Failed to get medecin data" });
   }
 });
 

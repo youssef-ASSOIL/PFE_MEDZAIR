@@ -1,5 +1,3 @@
-
-
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
@@ -9,6 +7,7 @@ const { getFirestore, collection, getDocs, addDoc, query, where } = require("fir
 
 const app = express();
 const port = 3002;
+let user="";
 
 app.use(cors()); // Allow all origins, you can customize this as needed
 app.use(express.json());
@@ -29,6 +28,25 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 const hospitalCol = collection(db, "Hospital");
 const medecinCol = collection(db, "Medecin");
+const DemandemedecinCol = collection(db, "DemandeMedcin");
+
+const SearchHospitalByMail = async (mail) => {
+  try {
+    const snapshot = await getDocs(hospitalCol);
+    let foundData = null;
+
+    snapshot.forEach((doc) => {
+      if (doc.data().email === mail) {
+        foundData = doc.data();
+      }
+    });
+
+    return foundData;
+  } catch (error) {
+    console.error("Error fetching hospital data:", error);
+  }
+};
+
 
 const validateSignInCredentials = (req, res, next) => {
   const { email, password } = req.body;
@@ -47,9 +65,12 @@ app.post("/signIn", validateSignInCredentials, (req, res) => {
   // (You should initialize Firebase auth at the beginning of server.js)
 
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then(async (userCredential) => {
       console.log(userCredential);
-      res.status(200).json({ message: "Sign-in successful" });
+      data = await SearchHospitalByMail(email);
+      user=email;
+      console.log("Youssef "+user);
+      res.status(200).json({ message: "Sign-in successful" ,data: data });
     })
     .catch((error) => {
       console.log(error);
@@ -70,17 +91,45 @@ app.post("/submitFormData", async (req, res) => {
   }
 });
 
-const getHospitalData = async () => {
+app.post("/submitFormDemandeData", async (req, res) => {
+  try {
+    const formData = req.body;
+    console.log("Received form data:", formData);
+    await addDoc(DemandemedecinCol, formData);
+    console.log("Data added to Firestore successfully!");
+    res.status(200).json({ message: "Data added to Firestore successfully!" });
+  } catch (error) {
+    console.error("Error adding data to Firestore:", error);
+    res.status(500).json({ error: "Failed to add data to Firestore" });
+  }
+});
+
+app.post("/getHospitalDataByEmail", async (req, res) =>{
+
   try {
     const snapshot = await getDocs(hospitalCol);
+    let foundData ={};
+
     snapshot.forEach((doc) => {
-      console.log("Hospital ID: ", doc.id);
-      console.log("Hospital Data: ", doc.data());
+      if (doc.data().email === user) {
+        foundData = {
+          id: doc.id,
+          name: doc.data().name,
+          region: doc.data().region,
+          email: doc.data().email,
+          img: doc.data().imagePath || '',
+        };
+      }
     });
+    console.log(foundData);
+    res.status(200).json(foundData);
+   
   } catch (error) {
     console.error("Error fetching hospital data:", error);
+    
   }
-};
+});
+
 
 onAuthStateChanged(auth, (user) => {
   if (user != null) {
@@ -140,6 +189,6 @@ app.get("*", (req, res) => {
 });
 
 app.listen(port, () => {
-  getHospitalData();
+  
   console.log(`Server running on port ${port}`);
 });

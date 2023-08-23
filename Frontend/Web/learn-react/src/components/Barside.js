@@ -6,6 +6,8 @@ const nav = [
   { text: "Home", link: "#!", icon: "home" },
   { text: "About", link: "#!", icon: "box" },
   { text: "Demande Medecin", link: "/DemandeMedcin", icon: "book" },
+  { text: "Profile", link: "/HospitalProfile", icon: "book" },
+  
 ];
 
 const Sidebar = ({ toggleBtn }) => {

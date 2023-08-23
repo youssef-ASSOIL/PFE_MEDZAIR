@@ -10,6 +10,7 @@ import Main from './components/Main';
 import UserNotFound from './components/UserNotFound';
 import TableMedcinCalls from './components/TableMedcinCalls';
 import DemandeMedcin from './components/DemandeMedcin';
+import HospitalProfile from './components/HospitalProfile';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/UserNotFound' element={<UserNotFound/>} ></Route>
         <Route path='/TableMedcinCalls' element={<TableMedcinCalls/>}></Route>
         <Route path='/DemandeMedcin' element={<DemandeMedcin/>}></Route>
+        <Route path='/HospitalProfile' element={<HospitalProfile/>}></Route>
       </Routes>
     </div>
   );

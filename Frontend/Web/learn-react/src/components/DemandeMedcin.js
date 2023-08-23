@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import "../css/DemandeMedcin.css";
+import axios from "axios";
+import SuccessAlert from "./SuccessAlert";
+import Sidebar from "./Barside";
 
 export default function DemandeMedcin() {
   const specialties = [
@@ -28,6 +31,18 @@ export default function DemandeMedcin() {
   const [selectedSpecialty, setSelectedSpecialty] = useState("");
   const [selectedDateTime, setSelectedDateTime] = useState("");
   const [experienceYear, setExperienceYear] = useState("");
+  const [HospitalData, setHospitalData] = useState([]);
+  const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission
+
+  useEffect(async () => {
+    await axios.post("/getHospitalDataByEmail")
+      .then((response) => {
+        setHospitalData(response.data);
+      })
+      .catch((error) =>
+        console.error("Error fetching medecin data:", error)
+      );
+  }, []);
 
   const handleDateTimeChange = (event) => {
     setSelectedDateTime(event.target.value);
@@ -38,7 +53,7 @@ export default function DemandeMedcin() {
         available: isDayTime() ? "day" : "night",
         date: selectedDateTime ? selectedDateTime.split("T")[0] : "",
         speciality: selectedSpecialty,
-        
+        region:HospitalData.region,
     };
 
     try {
@@ -51,7 +66,13 @@ export default function DemandeMedcin() {
       });
 
       if (response.ok) {
+        setFormSubmitted(true);
+        setSelectedSpecialty("");
+        setSelectedDateTime("");
+        setSelectedDateTime("");
+        setExperienceYear("");
         console.log("Form data submitted successfully");
+       
       } else {
         console.log("Failed to submit form data");
       }
@@ -68,8 +89,13 @@ export default function DemandeMedcin() {
     return selectedTime >= 6 && selectedTime < 18; // Assuming day is from 6 AM to 6 PM
   };
 
+
+  const [toggleBtn, setToggleBtn] = useState(true);
+  
   return (
+
     <div className="background-flow">
+    <Sidebar toggleBtn={toggleBtn} />
       <div className="content">
         <Box
           component="form"
@@ -142,6 +168,8 @@ export default function DemandeMedcin() {
             </div>
           </div>
         </Box>
+        {formSubmitted && <SuccessAlert />} 
+      
       </div>
     </div>
   );

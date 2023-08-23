@@ -11,6 +11,7 @@ import UserNotFound from './components/UserNotFound';
 import TableMedcinCalls from './components/TableMedcinCalls';
 import DemandeMedcin from './components/DemandeMedcin';
 import HospitalProfile from './components/HospitalProfile';
+import SuccessAlert from './components/SuccessAlert';
 
 const App = () => {
 
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/SignUp' element={<SignUp/>} ></Route>
         <Route path='/SignIn' element={<SignIn/>} ></Route>
         <Route path='/ResetPwd' element={<ResetPwd/>} ></Route>
+        <Route path='/SuccessAlert' element={<SuccessAlert/>} ></Route>
         <Route path='/UserNotFound' element={<UserNotFound/>} ></Route>
         <Route path='/TableMedcinCalls' element={<TableMedcinCalls/>}></Route>
         <Route path='/DemandeMedcin' element={<DemandeMedcin/>}></Route>

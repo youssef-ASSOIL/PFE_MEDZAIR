@@ -1,45 +1,33 @@
-/* Styles for the dashboard container */
+/* Dashboard container */
 .dashboard {
-  margin-top: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  width: 50%;
+  margin: 10px;
+  margin-top: -40px;
+  width: 500px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
 }
 
-/* Styles for the dashboard title */
+/* Dashboard title */
 .dashboard__title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   color: #333;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-/* Styles for the content container inside the dashboard */
-.dashboard__content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Styles for the chart container */
+/* Chart container */
 .chart {
-  margin: 20px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles for the chart title */
+/* Chart title */
 .chart__title {
   font-size: 18px;
   font-weight: bold;
@@ -47,18 +35,12 @@
   margin-bottom: 10px;
 }
 
-/* Styles for the chart grid */
+/* Chart grid */
 .chartGrid {
   stroke: #ddd;
 }
 
-/* Styles for the chart wrapper (for ResponsiveContainer) */
-.chart__wrapper {
-  width: 100%;
-  height: 250px;
-}
-
-/* Styles for the chart tooltip */
+/* Chart tooltip */
 .recharts-tooltip {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -66,14 +48,14 @@
   padding: 8px;
 }
 
-/* Styles for the tooltip label */
+/* Tooltip label */
 .recharts-tooltip-label {
   font-size: 14px;
   font-weight: bold;
   color: #333;
 }
 
-/* Styles for the tooltip value */
+/* Tooltip value */
 .recharts-tooltip-item {
   font-size: 12px;
   color: #666;
@@ -83,11 +65,15 @@
 /* Media query for smaller screens */
 @media (max-width: 768px) {
   .dashboard__content {
-    flex-direction: column;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     align-items: center;
+    justify-content: center;
   }
 
   .chart {
     width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    
   }
 }

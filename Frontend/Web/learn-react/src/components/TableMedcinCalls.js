@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../css/TableMedcinCall.css";
 import Sidebar from "./Barside";
+import Navbar2 from "./NavBar2";
+import Navbar from "./Navbar";
+import Dashboard from "./Dashboard";
 
 const TableMedcinCalls = () => {
   const [medecinData, setMedecinData] = useState([]);
@@ -20,8 +23,12 @@ const TableMedcinCalls = () => {
 
   const [toggleBtn, setToggleBtn] = useState(true);
 
+  const toggle = () => setToggleBtn((val) => !val);
+
   return (
     <div className="With-Dashboard">
+        <Navbar2 setToggle={toggle} /> 
+
       <Sidebar toggleBtn={toggleBtn} />
       <div className="allTable">
         <h1>Medcin Calls Table</h1>
@@ -51,7 +58,9 @@ const TableMedcinCalls = () => {
             ))}
           </tbody>
         </table>
+        
       </div>
+      <Dashboard/>
     </div>
   );
 };

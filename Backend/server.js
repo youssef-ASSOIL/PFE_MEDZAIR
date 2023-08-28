@@ -78,6 +78,27 @@ app.post("/signIn", validateSignInCredentials, (req, res) => {
     });
 });
 
+app.get("/getDemandeMedcinData", async (req, res) => {
+  try {
+    const snapshot = await getDocs(DemandemedecinCol);
+    const medcinData = [];
+    
+    snapshot.forEach((doc) => {
+      const medcinEntry = doc.data();
+      medcinData.push({
+        date: medcinEntry.date,
+        region: medcinEntry.region,
+        speciality: medcinEntry.speciality,
+      });
+    });
+    
+    res.status(200).json(medcinData);
+  } catch (error) {
+    console.error("Error sending medcin data:", error);
+    res.status(500).json({ error: "Failed to get medcin data" });
+  }
+});
+
 app.post("/submitFormData", async (req, res) => {
   try {
     const formData = req.body;

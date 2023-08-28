@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "../css/HospitalProfile.css";
+import Navbar2 from "./NavBar2";
+import Sidebar from "./Barside";
 
 export default function HospitalProfile() {
   const [HospitalData, setHospitalData] = useState([]);
@@ -17,9 +19,14 @@ export default function HospitalProfile() {
   }, []);
 
   
+  const [toggleBtn, setToggleBtn] = useState(true);
+  const toggle = () => setToggleBtn((val) => !val);
 
+  
   return (
     <div className="hospital-profile-container">
+      <Navbar2 setToggle={toggle} /> 
+      <Sidebar toggleBtn={toggleBtn} />
       <h2>Hospital Profiles</h2>
           <div className="info-item">
               <img src={HospitalData.img} alt={`Image of ${HospitalData.name}`} />

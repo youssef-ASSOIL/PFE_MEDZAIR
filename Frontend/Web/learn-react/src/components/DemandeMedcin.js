@@ -8,6 +8,7 @@ import "../css/DemandeMedcin.css";
 import axios from "axios";
 import SuccessAlert from "./SuccessAlert";
 import Sidebar from "./Barside";
+import Navbar2 from "./NavBar2";
 
 export default function DemandeMedcin() {
   const specialties = [
@@ -89,12 +90,15 @@ export default function DemandeMedcin() {
     return selectedTime >= 6 && selectedTime < 18; // Assuming day is from 6 AM to 6 PM
   };
 
+  
 
   const [toggleBtn, setToggleBtn] = useState(true);
   
+  const toggle = () => setToggleBtn((val) => !val);
   return (
 
     <div className="background-flow">
+      <Navbar2 setToggle={toggle} /> 
     <Sidebar toggleBtn={toggleBtn} />
       <div className="content">
         <Box

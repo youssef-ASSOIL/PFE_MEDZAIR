@@ -3,18 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import '../css/Navbar.css';
 import logo from '../images/logo.png';
 
-const Navbar = ({ setToggle }) => {
+const Navbar2 = ({ setToggle }) => {
   const navigate = useNavigate();
   
   
-  const handleConnectClick = () => {
+  const handleDeConnectClick = () => {
     navigate("/SignIn"); 
   };
-  
   const handleUserNotFound = () => {
     navigate("/UserNotFound");
   };
- 
   
  
   return (
@@ -39,14 +37,15 @@ const Navbar = ({ setToggle }) => {
           <a href="/">Contacter nous</a>
         </li>
         <li>
-            <button className="meConnecterButton" onClick={handleConnectClick}>
-              Me connecter
+          
+            <button className="meConnecterButton" onClick={handleDeConnectClick}>
+              Logout
             </button>
-         
+          
         </li>
       </ul>
     </div>
   );
 };
 
-export default Navbar;
+export default Navbar2;

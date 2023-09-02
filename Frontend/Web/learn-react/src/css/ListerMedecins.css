@@ -1,0 +1,128 @@
+/* Define some variables for common values */
+:root {
+    --primary-color: #3BACB6;
+    --secondary-color: #f5f5f5;
+    --dark-color: #333;
+    --light-color: #fff;
+    --border-color: #ddd;
+    --font-family: Arial, sans-serif;
+  }
+  
+  /* Reset some default styles for consistency */
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  ul,
+  ol,
+  li,
+  table {
+    
+    padding: 0;
+  }
+  
+  /* Style the overall container */
+  .medecin-table {
+    font-family: var(--font-family);
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  /* Style the table header */
+  .medecin-table h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Style the table container */
+  .table-container {
+    overflow-x: auto;
+  }
+  
+  /* Style the table */
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--light-color);
+    box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Style the table headers */
+  .table th {
+    background-color: var(--primary-color);
+    color: var(--light-color);
+    font-weight: bold;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  
+  /* Style the table data rows */
+  .table tbody tr {
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  /* Style the alternating row colors */
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  /* Style the table data cells */
+  .table td {
+    padding: 0.5rem;
+    vertical-align: middle;
+  }
+  
+  /* Style the tooltip */
+  .tooltip {
+    position: relative;
+  }
+  
+  .tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    padding: .25rem;
+    border-radius: 0.1875rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover::after {
+    opacity: 1;
+  }
+  
+  /* Style the profile images */
+  .image {
+    max-width: 3.125rem;
+    max-height: 3.125rem;
+    border-radius: 50%;
+  }
+  
+  /* Style the status cell */
+  .status {
+    font-weight: bold;
+    color: #28a745; /* Green for "Active" status */
+  }
+  
+  /* Responsive table layout for larger screens */
+  @media (min-width: 48rem) {
+    /* Display the table headers */
+    .table thead {
+      display: table-header-group;
+    }
+  
+    /* Display the table data cells as table cells */
+    .table tbody td {
+      display: table-cell;
+      padding: .5rem;
+    }
+  }
+    

@@ -3,7 +3,7 @@
   import "../css/MyNewForm.css";
   import UserNotFound from "./UserNotFound"; 
   import axios from "axios";
-  import TableMedcinCalls from "./TableMedcinCalls";
+  import TableMedcinCalls from "./Hospital/TableMedcinCalls";
   import Navbar2 from "./NavBar2";
   
 

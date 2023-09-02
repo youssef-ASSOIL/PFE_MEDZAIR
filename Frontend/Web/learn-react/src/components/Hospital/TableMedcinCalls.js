@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "../css/TableMedcinCall.css";
+import "../../css/TableMedcinCall.css";
 import Sidebar from "./Barside";
-import Navbar2 from "./NavBar2";
-import Navbar from "./Navbar";
+import Navbar2 from "../NavBar2";
+import Navbar from "../Navbar";
 import Dashboard from "./Dashboard";
 
 const TableMedcinCalls = () => {
@@ -40,6 +40,7 @@ const TableMedcinCalls = () => {
               <th>Name</th>
               <th>Lastname</th>
               <th>Speciality</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +55,7 @@ const TableMedcinCalls = () => {
                 <td>{row.name}</td>
                 <td>{row.lastname}</td>
                 <td>{row.speciality}</td>
+                <td className={row.status}>{row.status}</td>
               </tr>
             ))}
           </tbody>

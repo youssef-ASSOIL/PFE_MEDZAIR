@@ -1,0 +1,41 @@
+h1{
+  margin-bottom: 10px;
+}
+/* Calendar Styles */
+.react-calendar {
+  width: 100%;
+  max-width: 400px;
+  margin: 0; /* Remove margin to eliminate spacing */
+  background: transparent; /* Set a transparent background */
+  border: none; /* Remove border */
+  font-family: Arial, sans-serif;
+}
+
+.react-calendar__tile {
+  border: 1px solid #ccc;
+  padding: 4px;
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+  margin: 0; /* Remove margin to eliminate spacing */
+}
+
+.doctor-available {
+  background-color: #16a085;
+  color: #fff;
+}
+
+/* General Styles */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}

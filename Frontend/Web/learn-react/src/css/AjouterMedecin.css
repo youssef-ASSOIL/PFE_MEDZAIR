@@ -1,0 +1,94 @@
+/* AddMedecinForm.css */
+
+/* Container styles */
+.add-medecin-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* White background */
+  }
+  
+  /* Typography styles */
+  .add-medecin-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Grid container styles */
+  .add-medecin-grid {
+    margin-top: 20px;
+  }
+  
+  /* Text field styles */
+  .add-medecin-input {
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Checkbox styles */
+  .add-medecin-checkbox {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Button styles */
+  .add-medecin-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .add-medecin-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-medecin-buttons {
+    display: flex;
+    justify-content: space-between; /* Place buttons at opposite ends of the container */
+    margin-top: 20px; /* Add some spacing between the buttons and the form */
+  }
+  
+  .add-medecin-buttons button {
+    width: 48%; /* Adjust the button width as needed */
+  }
+  
+  /* Style for the "Add Medecin" button */
+  .add-medecin-buttons .add-medecin-button-add {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .add-medecin-buttons .add-medecin-button-add:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style for the "Cancel" button */
+  .add-medecin-buttons .add-medecin-button-cancel {
+    background-color: #f44336;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .add-medecin-buttons .add-medecin-button-cancel:hover {
+    background-color: #d32f2f;
+  }

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom"; // Import Link
-import '../css/styles.css';
+import "../../css/styles.css";
 
 const nav = [
-  { text: "Home", link: "#!", icon: "home" },
-  { text: "About", link: "#!", icon: "box" },
+  { text: "Home", link: "/TableMedcinCalls", icon: "home" },
+  { text: "Calendrier", link: "/MedecinCalendar", icon: "box" },
   { text: "Demande Medecin", link: "/DemandeMedcin", icon: "book" },
   { text: "Profile", link: "/HospitalProfile", icon: "book" },
   

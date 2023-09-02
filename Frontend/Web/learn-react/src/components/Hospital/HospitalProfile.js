@@ -1,22 +1,22 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import "../css/HospitalProfile.css";
-import Navbar2 from "./NavBar2";
+import "../../css/HospitalProfile.css";
+import Navbar2 from "../NavBar2";
 import Sidebar from "./Barside";
 
 export default function HospitalProfile() {
   const [HospitalData, setHospitalData] = useState([]);
 
-  useEffect(async () => {
-    await axios.post("/getHospitalDataByEmail")
+  
+  useEffect(() => { 
+    const fetchData = async () => { 
+      await axios.post("/getHospitalDataByEmail")
       .then((response) => {
-        //console.log("REDA 3AWTANI :" + data);
-        setHospitalData(response.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching medecin data:", error)
-      );
-  }, []);
+          setHospitalData(response.data);
+         }).catch((error) => 
+         console.error("Error fetching medecin data:", error)
+          ); }; fetchData(); },
+        []);
 
   
   const [toggleBtn, setToggleBtn] = useState(true);

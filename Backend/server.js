@@ -78,6 +78,19 @@ app.post("/signIn", validateSignInCredentials, (req, res) => {
     });
 });
 
+app.post("/addHospital", async (req, res) => {
+  const formData = req.body;
+  try {
+    const hospitalColRef = collection(db, "Hospital");
+    await addDoc(hospitalColRef, formData);
+    console.log("Hospital added successfully!");
+    res.status(200).json({ message: "Hospital added successfully!" });
+  } catch (error) {
+    console.error("Error adding hospital:", error);
+    res.status(500).json({ error: "Failed to add hospital" });
+  }
+});
+
 app.get("/getDemandeMedcinData", async (req, res) => {
   try {
     const snapshot = await getDocs(DemandemedecinCol);

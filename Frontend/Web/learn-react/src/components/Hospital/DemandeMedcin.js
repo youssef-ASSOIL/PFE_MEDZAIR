@@ -4,11 +4,11 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import "../css/DemandeMedcin.css";
+import "../../css/DemandeMedcin.css";
 import axios from "axios";
 import SuccessAlert from "./SuccessAlert";
 import Sidebar from "./Barside";
-import Navbar2 from "./NavBar2";
+import Navbar2 from "../NavBar2";
 
 export default function DemandeMedcin() {
   const specialties = [
@@ -35,15 +35,18 @@ export default function DemandeMedcin() {
   const [HospitalData, setHospitalData] = useState([]);
   const [formSubmitted, setFormSubmitted] = useState(false); // Track form submission
 
-  useEffect(async () => {
-    await axios.post("/getHospitalDataByEmail")
-      .then((response) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("/getHospitalDataByEmail");
         setHospitalData(response.data);
-      })
-      .catch((error) =>
-        console.error("Error fetching medecin data:", error)
-      );
+      } catch (error) {
+        console.error("Error fetching medecin data:", error);
+      }
+    };
+    fetchData();
   }, []);
+  
 
   const handleDateTimeChange = (event) => {
     setSelectedDateTime(event.target.value);

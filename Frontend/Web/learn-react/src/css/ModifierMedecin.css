@@ -1,0 +1,45 @@
+.modify-medecin {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.modify-medecin h2 {
+  text-align: center;
+  margin-bottom: 30px; 
+}
+
+.modify-medecin .MuiTextField-root {
+  margin-bottom: 20px;
+}
+
+.modify-medecin .MuiButton-contained {
+  margin-left: 10px;
+}
+
+.doctor-info {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 30px;
+}
+
+.doctor-info h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 600px) {
+
+  .modify-medecin {
+    padding: 10px;
+  }
+  
+  .modify-medecin h2 {
+    font-size: 1.8rem;
+  }
+  
+  .doctor-info {
+    padding: 10px;
+  }
+  
+}

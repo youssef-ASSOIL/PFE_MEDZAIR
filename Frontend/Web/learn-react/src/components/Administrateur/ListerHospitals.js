@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Avatar } from '@mui/material';
 import "../../css/ListerHospital.css"
+import SideBar2 from './SideBar2';
+
 const columns = [
   { id: 'email', label: 'Email' },
   { id: 'imagePath', label: 'Image Path' },
@@ -30,7 +32,11 @@ function createData(email, imagePath, name, region) {
   ];
 
 export default function ListerHospitals() {
+    const [toggleBtn, setToggleBtn] = useState(true);
+  
   return (
+    <div>
+        <SideBar2 toggleBtn={toggleBtn}/>
     <TableContainer component={Paper} className="TableContainer">
       <Table>
         <TableHead className="TableHead">
@@ -56,5 +62,6 @@ export default function ListerHospitals() {
         </TableBody>
       </Table>
     </TableContainer>
+    </div>
   );
 }

@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
 import "../../css/AjouterHopital.css"
 import axios from 'axios';
+import SideBar2 from './SideBar2';
+
+
 export default function AjouterHospital() {
+  const [toggleBtn, setToggleBtn] = useState(true);
   const [name, setName] = useState("");
   const [region, setRegion] = useState("");
   const [email, setEmail] = useState("");
@@ -33,6 +37,8 @@ export default function AjouterHospital() {
   };
 
   return (
+    <div>
+        <SideBar2 toggleBtn={toggleBtn}/>
     <div className="add-hospital-container">
     <h2>AjouterHospital</h2>
     <form className="add-hospital-form" onSubmit={handleSubmit}>
@@ -58,6 +64,7 @@ export default function AjouterHospital() {
         </div>
         <button type="submit">Add Hospital</button>
       </form>
+    </div>
     </div>
   )
 }

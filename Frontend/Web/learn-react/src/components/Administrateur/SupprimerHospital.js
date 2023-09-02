@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../css/SupprimerHospital.css"; // Import the CSS file
-
+import SideBar2 from "./SideBar2";
 const SupprimerHospital = () => {
   const [email, setEmail] = useState("");
   const [hospital, setHospital] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
-
+  const [toggleBtn, setToggleBtn] = useState(true);
+  
   useEffect(() => {
     if (email) {
       axios
@@ -32,6 +33,8 @@ const SupprimerHospital = () => {
   };
 
   return (
+    <div>
+        <SideBar2 toggleBtn={toggleBtn}/>
     <div className="delete-hospital-container">
       <h2>Delete Hospital</h2>
       <form className="delete-hospital-form">
@@ -64,6 +67,7 @@ const SupprimerHospital = () => {
           Delete Hospital
         </button>
       </form>
+    </div>
     </div>
   );
 };

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import "../../css/ModifyHospital.css";
 import axios from 'axios';
+import SideBar2 from './SideBar2';
 
 export default function ModifierHospital() {
     const [email, setEmail] = useState("");
-  const [hospital, setHospital] = useState(null);
-  const [newRegion, setNewRegion] = useState("");
-
+    const [hospital, setHospital] = useState(null);
+    const [newRegion, setNewRegion] = useState("");
+    const [toggleBtn, setToggleBtn] = useState(true);
+  
   useEffect(() => {
     if (email) {
       axios
@@ -34,6 +36,8 @@ export default function ModifierHospital() {
         }
       };
     return (
+        <div>
+     <SideBar2 toggleBtn={toggleBtn}/>
     <div className="modify-hospital-container">
     <h2>Modify Hospital</h2>
     <form className="modify-hospital-form" onSubmit={handleModify}>
@@ -60,6 +64,7 @@ export default function ModifierHospital() {
         Modify Hospital
       </button>
     </form>
+  </div>
   </div>
   )
 }

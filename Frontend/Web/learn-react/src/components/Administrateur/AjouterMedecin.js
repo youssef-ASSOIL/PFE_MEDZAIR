@@ -7,8 +7,11 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+import SideBar2 from './SideBar2';
+
 
 const AjouterMedecin = () => {
+    const [toggleBtn, setToggleBtn] = useState(true);
     const [birthday, setBirthday] = useState("");
     const [email, setEmail] = useState("");
     const [selectedImage, setSelectedImage] = useState(null); // Store the selected image
@@ -47,6 +50,8 @@ const AjouterMedecin = () => {
     };
 
   return (
+    <div>
+        <SideBar2 toggleBtn={toggleBtn}/>
     <div className="add-medecin-container">
       <React.Fragment>
         <Typography variant="h6" gutterBottom>
@@ -168,6 +173,7 @@ const AjouterMedecin = () => {
           </Button>
         </div>
       </React.Fragment>
+    </div>
     </div>
   );
 };

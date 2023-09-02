@@ -4,8 +4,10 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../css/ModifierMedecin.css";
+import SideBar2 from './SideBar2';
 
 function DoctorInfo({ doctorInfo }) {
+    
   return (
     <div className="doctor-info">
       <h3>Doctor Information</h3>
@@ -37,7 +39,7 @@ function ModifyDoctorInfo({ modifiedDoctorInfo, onModifyDoctorInfoChange, onModi
       reader.readAsDataURL(file);
     }
   };
-
+  
   return (
     <div>
       <h3>Modify Doctor Information</h3>
@@ -187,8 +189,11 @@ export default function ModifierMedcin() {
     setDoctorsData(updatedDoctorsData);
     setModifiedDoctorInfo({}); // Clear the modified data after update
   };
-
+  const [toggleBtn, setToggleBtn] = useState(true);
+  
   return (
+    <div>
+    <SideBar2 toggleBtn={toggleBtn}/>
     <div className="modify-medecin">
       <h2>Modify Medecin</h2>
       <div>
@@ -213,6 +218,7 @@ export default function ModifierMedcin() {
           onModify={handleModify}
         />
       )}
+    </div>
     </div>
   );
 }

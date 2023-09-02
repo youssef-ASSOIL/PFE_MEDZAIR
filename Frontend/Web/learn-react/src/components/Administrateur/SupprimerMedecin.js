@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../css/SupprimerMedecin.css"; // Import the CSS file
-
+import SideBar2 from "./SideBar2";
 const SupprimerMedecin = () => {
   const [rpps, setRpps] = useState("");
   const [medecin, setMedecin] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
-
+  const [toggleBtn, setToggleBtn] = useState(true);
+  
   useEffect(() => {
     if (rpps) {
       axios
@@ -38,6 +39,8 @@ const SupprimerMedecin = () => {
   };
 
   return (
+    <div>
+        <SideBar2 toggleBtn={toggleBtn}/>
     <div className="delete-medecin-container">
       <h2>Delete Doctor (Medecin)</h2>
       <form className="delete-medecin-form">
@@ -76,6 +79,7 @@ const SupprimerMedecin = () => {
         {deleteSuccess && <p className="delete-success">Doctor deleted successfully!</p>}
         {deleteError && <p className="delete-error">{deleteError}</p>}
       </form>
+    </div>
     </div>
   );
 };

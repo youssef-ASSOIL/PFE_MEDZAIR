@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "../../css/ListerMedecins.css";
+import SideBar2 from './SideBar2';
 
 export default function ListerMedcin() {
   const [medecinData, setMedecinData] = useState([]);
-
+  const [toggleBtn, setToggleBtn] = useState(true);
+  
   // Assuming you fetch or set your medecinData using useEffect
   useEffect(() => {
     // Replace this with actual data fetching or setting logic
@@ -53,6 +55,8 @@ export default function ListerMedcin() {
   }, []);
 
   return (
+    <div>
+        <SideBar2 toggleBtn={toggleBtn}/>
     <div className="allTable">
       <h1>Medcin Calls Table</h1>
       <div className="table-container">
@@ -92,6 +96,7 @@ export default function ListerMedcin() {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 }

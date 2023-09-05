@@ -47,6 +47,9 @@
     const HandleSignUp = () => {
       navigate("/SignUp");
     };
+    const SignInAdmin= () => {
+      navigate("/SignInAdmin");
+    };
 
     return (
       <div>
@@ -101,6 +104,9 @@
         onClick={()=>HandleSignUp()}
         >
           Créer un compte
+        </button>
+        <button className="Form__button" onClick={SignInAdmin}>
+          login as admin
         </button>
       </form>
     {error && <UserNotFound />}

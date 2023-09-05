@@ -1,9 +1,12 @@
+
 const express = require("express");
 const path = require("path");
 const cors = require("cors");
 const { initializeApp } = require("firebase/app");
 const { getAuth, signInWithEmailAndPassword, onAuthStateChanged } = require("firebase/auth");
 const { getFirestore, collection, getDocs, addDoc, query, where } = require("firebase/firestore");
+const DemandeMedcinB = require("./Business/DemandeMedecinB");
+const AdminBusiness = require("./Business/AdminBusiness");
 
 const app = express();
 const port = 3002;
@@ -78,11 +81,22 @@ app.post("/signIn", validateSignInCredentials, (req, res) => {
     });
 });
 
+// app.post("/addHospital", async (req, res) => {
+//   const formData = req.body;
+//   try {
+//     const hospitalColRef = collection(db, "Hospital");
+//     await addDoc(hospitalColRef, formData);
+//     console.log("Hospital added successfully!");
+//     res.status(200).json({ message: "Hospital added successfully!" });
+//   } catch (error) {
+//     console.error("Error adding hospital:", error);
+//     res.status(500).json({ error: "Failed to add hospital" });
+//   }
+// });
 app.post("/addHospital", async (req, res) => {
   const formData = req.body;
   try {
-    const hospitalColRef = collection(db, "Hospital");
-    await addDoc(hospitalColRef, formData);
+    GestionHospital.AjouterHospital(formData);
     console.log("Hospital added successfully!");
     res.status(200).json({ message: "Hospital added successfully!" });
   } catch (error) {
@@ -129,7 +143,7 @@ app.post("/submitFormDemandeData", async (req, res) => {
   try {
     const formData = req.body;
     console.log("Received form data:", formData);
-    await addDoc(DemandemedecinCol, formData);
+    DemandeMedcinB.addDemandeMedcinB(formData);
     console.log("Data added to Firestore successfully!");
     res.status(200).json({ message: "Data added to Firestore successfully!" });
   } catch (error) {
@@ -225,4 +239,67 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   
   console.log(`Server running on port ${port}`);
+});
+
+
+// Add routing for DemandeMedcinB
+app.post("/addDemandeMedcinB", (req, res) => {
+  const demandeMedcinBData = req.body;
+  DemandeMedcinB.addDemandeMedcinB(demandeMedcinBData);
+  res.status(200).json({ message: "DemandeMedcinB added successfully!" });
+});
+
+app.delete("/deleteDemandeMedcinB/:id", (req, res) => {
+  const demandeMedcinBId = req.params.id;
+  DemandeMedcinB.deleteDemandeMedecin(demandeMedcinBId);
+  res.status(200).json({ message: "DemandeMedcinB deleted successfully!" });
+});
+
+app.get("/getAllDemandeMedcinBs", (req, res) => {
+  const allDemandeMedcinBs = DemandeMedcinB.loadAllDemandeMedcinBs();
+  res.status(200).json(allDemandeMedcinBs);
+});
+
+
+app.delete("/deleteHospital/:email", (req, res) => {
+  const email = req.params.email;
+  GestionHospital.SupprimerHospital(email);
+  res.status(200).json({ message: "Hospital deleted successfully!" });
+});
+
+app.put("/updateHospital/:email", (req, res) => {
+  const email = req.params.email;
+  const { newName, newImagePath, newData, newRegion } = req.body;
+  GestionHospital.ModifierHospital(email, newName, newImagePath, newData, newRegion);
+  res.status(200).json({ message: "Hospital updated successfully!" });
+});
+
+app.get("/getAllHospitals", (req, res) => {
+  const allHospitals = GestionHospital.loadAllHospitals();
+  res.status(200).json(allHospitals);
+});
+
+// Add routing for GestionMedecin
+app.post("/addMedecin", (req, res) => {
+  const medecinData = req.body;
+  GestionMedecin.AjouterMedecin(medecinData);
+  res.status(200).json({ message: "Medecin added successfully!" });
+});
+
+app.delete("/deleteMedecin/:email", (req, res) => {
+  const email = req.params.email;
+  GestionMedecin.SupprimerMedecin(email);
+  res.status(200).json({ message: "Medecin deleted successfully!" });
+});
+
+
+
+app.get("/getAllMedecins", (req, res) => {
+  const allMedecins = GestionHospital.loadAllMedecin();
+  res.status(200).json(allMedecins);
+});
+app.post("/SignInAdmin", (req, res) => {
+
+    const admin = AdminBusiness.CheckLogin();
+    res.status(200).json({result:admin});
 });

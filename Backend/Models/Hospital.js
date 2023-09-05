@@ -1,24 +1,15 @@
 
+function Hospital(email,name,imagePath,data,region) {
+  this.email=email;
+  this.imagePath=imagePath;
+  this.data=data;
+  this.name=name;
+  this.region=region;
+}
 
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-});
+Hospital.prototype.toString = function () {
+  return `Hospital (email: ${this.email}, name: ${this.name}, imagePath: ${this.imagePath}, data: ${this.data}, region: ${this.region})`;
+};
 
-
-const hospitals = mongoose.model('Hospital', userSchema);
-
-module.exports = hospitals;
+module.exports = Hospital;

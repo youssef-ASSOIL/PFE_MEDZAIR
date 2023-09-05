@@ -85,7 +85,7 @@ const AjouterMedecin = () => {
               required
               id="birthday"
               name="birthday"
-              label="Birthday"
+              //label="Birthday"
               type="date"
               fullWidth
               variant="standard"

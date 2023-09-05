@@ -55,8 +55,10 @@ export default function ListerMedcin() {
   }, []);
 
   return (
+    
     <div>
         <SideBar2 toggleBtn={toggleBtn}/>
+        
     <div className="allTable">
       <h1>Medcin Calls Table</h1>
       <div className="table-container">
@@ -97,6 +99,8 @@ export default function ListerMedcin() {
         </table>
       </div>
     </div>
+   
     </div>
+   
   );
 }

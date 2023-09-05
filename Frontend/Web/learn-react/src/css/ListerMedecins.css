@@ -25,6 +25,7 @@
   
   /* Style the overall container */
   .medecin-table {
+   
     font-family: var(--font-family);
     background-color: var(--secondary-color);
     padding: 1rem;
@@ -127,3 +128,7 @@
     }
   }
     
+  .allTable{
+    width: 100%;
+    margin-left: 15px;
+  }

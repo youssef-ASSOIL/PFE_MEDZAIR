@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../css/SupprimerMedecin.css"; // Import the CSS file
 import SideBar2 from "./SideBar2";
+
 const SupprimerMedecin = () => {
+  
   const [rpps, setRpps] = useState("");
   const [medecin, setMedecin] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);

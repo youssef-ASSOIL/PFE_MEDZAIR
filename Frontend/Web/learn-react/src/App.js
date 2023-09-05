@@ -21,6 +21,7 @@ import ModifierMedcin from './components/Administrateur/ModifierMedcin';
 import SupprimerMedecin from './components/Administrateur/SupprimerMedecin';
 import ListerHospitals from './components/Administrateur/ListerHospitals';
 import ListerMedcin from './components/Administrateur/ListerMedcin';
+import SignInAdmin from './components/Administrateur/SignInAdmin';
 
 const App = () => {
 
@@ -46,7 +47,7 @@ const App = () => {
         <Route path='/SupprimerMedecin' element={<SupprimerMedecin/>}></Route> 
         <Route path='/ListerHospitals' element={<ListerHospitals/>}></Route> 
         <Route path='/ListerMedcin' element={<ListerMedcin/>}></Route> 
-       
+        <Route path='/SignInAdmin' element={<SignInAdmin/>}></Route> 
       </Routes>
     </div>
   );

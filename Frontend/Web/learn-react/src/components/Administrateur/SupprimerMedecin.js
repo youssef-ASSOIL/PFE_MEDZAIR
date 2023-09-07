@@ -11,77 +11,94 @@ const SupprimerMedecin = () => {
   const [deleteSuccess, setDeleteSuccess] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
   const [toggleBtn, setToggleBtn] = useState(true);
+
   
-  useEffect(() => {
-    if (rpps) {
-      axios
-        .get(`http://localhost:3002/getMedecinDataByRPPS?rpps=${rpps}`)
-        .then((response) => {
-          setMedecin(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching doctor data:", error);
-        });
-    }
-  }, [rpps]);
+  const handleSearch = () => {
+    // Replace this with your express server URL
+   
+    axios.post("http://localhost:3002/searchMedecin", { rpps: rpps }) // Use axios.get()
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          setMedecin(null); // Clear Medecin data if not found
+          setDeleteError(data.error);
+        } else {
+          const medecin = data.data; // Access the actual data object
+
+          
+          setMedecin(medecin[0]);
+          setDeleteError(null);
+  
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching medecin:", error);
+        setDeleteError(error);
+      });
+  };
 
   const handleDelete = async () => {
-    if (medecin && confirmDelete) {
-      try {
-        await axios.post(`http://localhost:3002/deleteMedecinByRPPS?rpps=${rpps}`);
-        setDeleteSuccess(true);
-        setDeleteError(null);
-        setMedecin(null);
-      } catch (error) {
-        console.error("Error deleting doctor:", error);
-        setDeleteError("Error deleting doctor. Please try again.");
-        setDeleteSuccess(false);
+    try {
+      if (medecin) {
+        // Send a DELETE request to delete the Medecin by ID
+        const response = await axios.delete("/deleteMedecin", { data: { id: medecin.id } });
+        if (response.status === 200) {
+          setMedecin(null);
+          setDeleteSuccess(true);
+        }
       }
+    } catch (error) {
+      console.error("Error deleting Medecin:", error);
+      setDeleteError("Failed to delete Medecin");
     }
   };
 
   return (
     <div>
-        <SideBar2 toggleBtn={toggleBtn}/>
-    <div className="delete-medecin-container">
-      <h2>Delete Doctor (Medecin)</h2>
-      <form className="delete-medecin-form">
-        <div>
-          <label>RPPS:</label>
-          <input type="text" value={rpps} onChange={(e) => setRpps(e.target.value)} />
-        </div>
-        {medecin && (
-          <div className="medecin-details">
-            <h3>Doctor Details:</h3>
-            <p>Name: {medecin.name}</p>
-            <p>Specialty: {medecin.specialty}</p>
-            <p>RPPS: {medecin.rpps}</p>
-            {/* Display other doctor details */}
+      <SideBar2 toggleBtn={toggleBtn} />
+      <div className="delete-medecin-container">
+        <h2>Delete Doctor (Medecin)</h2>
+        <form className="delete-medecin-form">
+          <div>
+            <label>RPPS:</label>
+            <input type="text" value={rpps} onChange={(e) => setRpps(e.target.value)} />
+            <button type="button" onClick={handleSearch}>
+              Search Doctor
+            </button>
           </div>
-        )}
-        {medecin && (
-          <div className="confirm-delete">
-            <label>
-              Are you sure you want to delete this doctor? This action cannot be undone.
-            </label>
-            <input
-              type="checkbox"
-              checked={confirmDelete}
-              onChange={(e) => setConfirmDelete(e.target.checked)}
-            />
-          </div>
-        )}
-        <button
-          type="button"
-          onClick={handleDelete}
-          disabled={!medecin || !confirmDelete}
-        >
-          Delete Doctor
-        </button>
-        {deleteSuccess && <p className="delete-success">Doctor deleted successfully!</p>}
-        {deleteError && <p className="delete-error">{deleteError}</p>}
-      </form>
-    </div>
+          {medecin && (
+            <div className="medecin-details">
+              <h3>Doctor Details:</h3>
+              <p>First Name: {medecin.firstName}</p>
+              <p>Speciality: {medecin.speciality}</p>
+              <p>RPPS: {medecin.rpps}</p>
+            </div>
+          )}
+          {medecin && (
+            <div className="confirm-delete">
+              <label>
+                Are you sure you want to delete this doctor? This action cannot be undone.
+              </label>
+              <input
+                type="checkbox"
+                checked={confirmDelete}
+                onChange={(e) => setConfirmDelete(e.target.checked)}
+              />
+            </div>
+          )}
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={!medecin || !confirmDelete}
+          >
+            Delete Doctor
+          </button>
+          {deleteSuccess && (
+            <p className="delete-success">Doctor deleted successfully!</p>
+          )}
+          {deleteError && <p className="delete-error">{deleteError}</p>}
+        </form>
+      </div>
     </div>
   );
 };

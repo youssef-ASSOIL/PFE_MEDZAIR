@@ -330,12 +330,21 @@ app.post("/modifyMedecin", async (req, res) => {
   }
 });
 
-app.delete("/deleteMedecin/:email", (req, res) => {
-  const email = req.params.email;
-  GestionMedecin.SupprimerMedecin(email);
-  res.status(200).json({ message: "Medecin deleted successfully!" });
-});
 
+// Route to delete a Medecin by ID
+app.delete("/deleteMedecin", async (req, res) => {
+  try {
+    const medecinId = req.body.id; // Get the Medecin ID from the request body.
+
+    // Assuming you have a function to delete a Medecin by ID in GestionMedecin.
+    await GestionMedecin.SupprimerMedecin(medecinId);
+
+    res.status(200).json({ message: "Medecin deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting Medecin:", error);
+    res.status(500).json({ error: "Failed to delete Medecin" });
+  }
+});
 
 
 app.get("/getAllMedecins", (req, res) => {

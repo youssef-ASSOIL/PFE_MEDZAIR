@@ -6,8 +6,8 @@ class GestionMedecin{
         MedecinDao.addMedecin(medecin);
     }
 
-    static SupprimerMedecin(medecin){
-        MedecinDao.deleteMedecin(email);
+    static SupprimerMedecin(medecinId){
+        MedecinDao.deleteMedecin(medecinId);
     }
     static searchMedecinByRpps(rpps){
         return MedecinDao.searchMedecins(rpps);
@@ -21,11 +21,12 @@ class GestionMedecin{
         const medecinId = medecin.id; 
 
       const updatedData = {
-        name: medecin.name,
-        lastname:medecin.lastname,
+        firstName: medecin.firstName,
+        lastName:medecin.lastName,
         password:medecin.password,
         phone:medecin.phone,
         speciality:medecin.speciality,
+        rpps:medecin.rpps,
         // imagePath: medecin.selectedImage, 
         email:medecin.email,
         birthday: medecin.birthday, 

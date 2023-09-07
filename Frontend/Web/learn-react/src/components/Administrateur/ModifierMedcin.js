@@ -70,22 +70,22 @@ function ModifyDoctorInfo({ modifiedDoctorInfo, onModifyDoctorInfoChange, onModi
       <div className="column">
         <TextField
           required
-          id="name"
-          name="name"
-          label="Name"
+          id="firstName"
+          name="firstName"
+          label="FirstName"
           fullWidth
           variant="standard"
-          value={modifiedDoctorInfo.name || ''}
-          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, name: e.target.value })}
+          value={modifiedDoctorInfo.firstName || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, firstName: e.target.value })}
         />
         <TextField
-          id="lastname"
-          name="lastname"
-          label="Lastname"
+          id="lastName"
+          name="lastName"
+          label="LastName"
           fullWidth
           variant="standard"
-          value={modifiedDoctorInfo.lastname || ''}
-          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, lastname: e.target.value })}
+          value={modifiedDoctorInfo.lastName || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, lastName: e.target.value })}
         />
         <TextField
           id="email"
@@ -175,29 +175,16 @@ export default function ModifierMedcin() {
 
   const [modifiedDoctorInfo, setModifiedDoctorInfo] = useState({
     birthday:'',
-    name: '',
+    firstName: '',
     email: '',
     selectedImage: '', // Store the base64 data URL of the image
-    lastname: '',
+    lastName: '',
     password: '',
     phone: '',
     speciality: '',
   });
 
   
-
-  // const handleSearch = () => {
-  //   // Search for the doctor in your doctorsData using searchRpps
-  //   const foundDoctor = doctorsData.find((doctor) => doctor.rpps === searchRpps);
-
-  //   if (foundDoctor) {
-  //     setDoctorInfo(foundDoctor);
-  //   } else {
-  //     // Handle doctor not found
-  //     setDoctorInfo({});
-  //   }
-  // };
-
   
   const handleSearch = () => {
     // Replace this with your express server URL

@@ -1,18 +1,20 @@
+const DemandeMedecinDao = require("../dao/DemandeMedcinDao");
+
 class DemandeMedcinB{
   
     
       static addDemandeMedcinB(demandeMedcinBData) {
-        DemandeMedcinB.addDemandeMedecin(demandeMedcinBData);
+        DemandeMedecinDao.addDemandeMedecin(demandeMedcinBData);
       }
     
       static async deleteDemandeMedcinB(demandeMedcinBId) {
        
-        DemandeMedcinB.deleteDemandeMedecin(demandeMedcinBId);
+        DemandeMedecinDao.deleteDemandeMedecin(demandeMedcinBId);
       }
     
      
       static loadAllDemandeMedcinBs() {
-        return DemandeMedcinB.loadAllDemandeMedecins();
+        return DemandeMedecinDao.loadAllDemandeMedecins();
           
       }
 

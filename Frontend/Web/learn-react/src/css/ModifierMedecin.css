@@ -1,45 +1,58 @@
-.modify-medecin {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Reduce the gap between columns */
 }
 
-.modify-medecin h2 {
-  text-align: center;
-  margin-bottom: 30px; 
-}
-
-.modify-medecin .MuiTextField-root {
-  margin-bottom: 20px;
-}
-
-.modify-medecin .MuiButton-contained {
-  margin-left: 10px;
-}
-
-.doctor-info {
-  background-color: #f5f5f5;
-  padding: 20px;
+.column {
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
   border-radius: 5px;
-  margin-bottom: 30px;
+  padding: 10px; /* Reduce the padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease-in-out;
 }
 
-.doctor-info h3 {
-  margin-top: 0;
+.column:hover {
+  background-color: #e0e0e0;
 }
 
-@media (max-width: 600px) {
+h3 {
+  font-size: 20px; /* Reduce the font size */
+  margin-bottom: 10px; /* Reduce the margin */
+}
 
-  .modify-medecin {
-    padding: 10px;
-  }
-  
-  .modify-medecin h2 {
-    font-size: 1.8rem;
-  }
-  
-  .doctor-info {
-    padding: 10px;
-  }
-  
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 3px; /* Reduce the margin */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  width: 100%;
+  padding: 5px; /* Reduce the padding */
+  margin-bottom: 5px; /* Reduce the margin */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 14px; /* Reduce the font size */
+}
+
+input[type="file"] {
+  margin-bottom: 5px; /* Reduce the margin */
+}
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 8px 16px; /* Reduce the padding */
+  border: none;
+  border-radius: 3px;
+  font-size: 16px; /* Reduce the font size */
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
 }

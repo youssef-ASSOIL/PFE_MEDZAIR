@@ -3,7 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const { initializeApp } = require("firebase/app");
 const { getAuth, signInWithEmailAndPassword, onAuthStateChanged } = require("firebase/auth");
-const { getFirestore, collection, getDocs, addDoc, query, where } = require("firebase/firestore");
+const { getFirestore, collection, getDocs, addDoc, query, where, setDoc, doc } = require("firebase/firestore");
 
 const app = express();
 const port = 3002;
@@ -23,19 +23,21 @@ const firebaseApp = initializeApp({
   appId: "1:806510731200:web:f5c2e8a2eb6b13990ff225",
   measurementId: "G-N3N921QWM0",
 });
+const db = getFirestore(firebaseApp);
 
 const medecinCol = collection(db, "Medecin");
 
 class MedecinDao{
-    static async addMedecin(medecinData) {
-        try {
-          const newMedecinRef = await addDoc(medecinCol, medecinData);
-          return newMedecinRef.id;
-        } catch (error) {
-          console.error("Error adding medic:", error);
-          throw error;
-        }
-      }
+  static async addMedecin(medecinData) {
+    try {
+      const newMedecinRef = await addDoc(medecinCol, medecinData);
+      return newMedecinRef.id;
+      
+    } catch (error) {
+      console.error("Error adding medecin:", error);
+      throw error;
+    }
+  }
     
       static async deleteMedecin(medecinId) {
         try {
@@ -46,9 +48,9 @@ class MedecinDao{
         }
       }
     
-      static async searchMedecins(criteria) {
+      static async searchMedecins(rpps) {
         try {
-          const q = query(medecinCol, where("criteriaField", "==", criteria));
+          const q = query(medecinCol, where("rpps", "==", rpps));
           const querySnapshot = await getDocs(q);
           const medecins = [];
           querySnapshot.forEach((doc) => {
@@ -63,7 +65,10 @@ class MedecinDao{
     
       static async modifyMedecin(medecinId, newData) {
         try {
-          await setDoc(doc(db, "Medecin", medecinId), newData, { merge: true });
+          console.log('Updated data', newData);
+          const docRef = doc(db, "Medecin", medecinId);
+          await setDoc(docRef, newData);
+         
         } catch (error) {
           console.error("Error modifying medic:", error);
           throw error;

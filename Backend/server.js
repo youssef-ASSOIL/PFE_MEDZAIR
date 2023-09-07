@@ -7,6 +7,7 @@ const { getAuth, signInWithEmailAndPassword, onAuthStateChanged } = require("fir
 const { getFirestore, collection, getDocs, addDoc, query, where } = require("firebase/firestore");
 const DemandeMedcinB = require("./Business/DemandeMedecinB");
 const AdminBusiness = require("./Business/AdminBusiness");
+const GestionMedecin = require("./Business/GestionMedecins");
 
 const app = express();
 const port = 3002;
@@ -280,10 +281,53 @@ app.get("/getAllHospitals", (req, res) => {
 });
 
 // Add routing for GestionMedecin
-app.post("/addMedecin", (req, res) => {
-  const medecinData = req.body;
-  GestionMedecin.AjouterMedecin(medecinData);
-  res.status(200).json({ message: "Medecin added successfully!" });
+app.post("/addMedecin", async (req, res) => {
+  try{
+    
+    const medecinData = req.body;
+    
+    GestionMedecin.AjouterMedecin(medecinData);
+    res.status(200).json({ message: "Medecin added successfully!" , data: medecinData});
+    
+  }catch(error){
+    console.error("Error adding Medecin:", error);
+    res.status(500).json({ error: "Failed to add Medecin" });
+  }
+  
+});
+// Route to search for a Medecin by ID
+app.post("/searchMedecin", async (req, res) => {
+  try {
+    const medecinRpps = req.body.rpps;
+    // Assuming you have a function to search for a Medecin by ID in GestionMedecin.
+    const medecin = await GestionMedecin.searchMedecinByRpps(medecinRpps); // Implement this function.
+  
+    if (!medecin) {
+
+      res.status(404).json({ error: "Medecin not found" });
+    } else {
+      res.status(200).json({ message: "Medecin found", data: medecin });
+    }
+  } catch (error) {
+    console.error("Error searching for Medecin:", error);
+    res.status(500).json({ error: "Failed to search for Medecin" });
+  }
+});
+
+app.post("/modifyMedecin", async (req, res) => {
+  try {
+    // Extract the necessary data from the request body.
+    const medecin = req.body;
+
+    const medecinString = JSON.stringify(medecin);
+    // Call the business logic function to modify the Medecin.
+    GestionMedecin.modifierMedecin(medecinString);
+
+    res.status(200).json({ message: "Medecin modified successfully" });
+  } catch (error) {
+    console.error("Error modifying Medecin:", error);
+    res.status(500).json({ error: "Failed to modify Medecin" });
+  }
 });
 
 app.delete("/deleteMedecin/:email", (req, res) => {

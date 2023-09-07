@@ -5,20 +5,43 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import "../../css/ModifierMedecin.css";
 import SideBar2 from './SideBar2';
+import axios from 'axios';
+import "../../css/DoctorinfoModify.css"
+import MenuItem from '@mui/material/MenuItem';
+
+const specialties = [
+  "anesthésiologie",
+  "cardiologie",
+  "dermatologie",
+  "endocrinologie",
+  "gastro-entérologie",
+  "génétique médicale",
+  "gériatrie",
+  "hématologie",
+  "immunologie clinique et allergie",
+  "néphrologie",
+  "neurologie",
+  "pédiatrie",
+  "pneumologie",
+  "rhumatologie",
+  // Add more specialties as needed
+]
 
 function DoctorInfo({ doctorInfo }) {
-    
+  console.log("Received doctorInfo:", doctorInfo); // Debugging line
+
+  const doctorData = doctorInfo[0];
+
   return (
     <div className="doctor-info">
       <h3>Doctor Information</h3>
-      <p>Name: {doctorInfo.name}</p>
-      <p>RPPS: {doctorInfo.rpps}</p>
-      <p>Email: {doctorInfo.email}</p>
-      <p>Selected Image: {doctorInfo.selectedImage}</p>
-      <p>Lastname: {doctorInfo.lastname}</p>
-      <p>Password: {doctorInfo.password}</p>
-      <p>Phone: {doctorInfo.phone}</p>
-      <p>Speciality: {doctorInfo.speciality}</p>
+      <p><p className='key'>First Name:</p> {doctorData.firstName}</p>
+      <p><p className='key'>Last Name: </p> {doctorData.lastName}</p>
+      <p><p className='key'>RPPS:</p>  {doctorData.rpps}</p>
+      <p><p className='key'>Email:</p>  {doctorData.email}</p>
+      {/* <p>Selected Image: {doctorInfo.selectedImage}</p> */}
+      <p><p className='key'>Phone:</p>  {doctorData.phone}</p>
+      <p><p className='key'>Speciality:</p>{doctorData.speciality}</p>
     </div>
   );
 }
@@ -42,27 +65,39 @@ function ModifyDoctorInfo({ modifiedDoctorInfo, onModifyDoctorInfoChange, onModi
   
   return (
     <div>
-      <h3>Modify Doctor Information</h3>
-      <TextField
-        required
-        id="name"
-        name="name"
-        label="Name"
-        fullWidth
-        variant="standard"
-        value={modifiedDoctorInfo.name || ''}
-        onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, name: e.target.value })}
-      />
-      <TextField
-        id="email"
-        name="email"
-        label="Email"
-        fullWidth
-        variant="standard"
-        value={modifiedDoctorInfo.email || ''}
-        onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, email: e.target.value })}
-      />
-      <div>
+    <h3>Modify Doctor Information</h3>
+    <div className="form-container">
+      <div className="column">
+        <TextField
+          required
+          id="name"
+          name="name"
+          label="Name"
+          fullWidth
+          variant="standard"
+          value={modifiedDoctorInfo.name || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, name: e.target.value })}
+        />
+        <TextField
+          id="lastname"
+          name="lastname"
+          label="Lastname"
+          fullWidth
+          variant="standard"
+          value={modifiedDoctorInfo.lastname || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, lastname: e.target.value })}
+        />
+        <TextField
+          id="email"
+          name="email"
+          label="Email"
+          fullWidth
+          variant="standard"
+          value={modifiedDoctorInfo.email || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, email: e.target.value })}
+        />
+      </div>
+      <div className="column">
         <label htmlFor="image">Selected Image:</label>
         <input
           type="file"
@@ -71,90 +106,75 @@ function ModifyDoctorInfo({ modifiedDoctorInfo, onModifyDoctorInfoChange, onModi
           accept="image/*" // Allow only image files
           onChange={handleImageChange}
         />
+        <TextField
+          id="password"
+          name="password"
+          label="Password"
+          fullWidth
+          variant="standard"
+          value={modifiedDoctorInfo.password || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, password: e.target.value })}
+        />
+        <TextField
+          id="phone"
+          name="phone"
+          label="Phone"
+          fullWidth
+          variant="standard"
+          value={modifiedDoctorInfo.phone || ''}
+          onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, phone: e.target.value })}
+        />
       </div>
+      <div className="column">
       <TextField
-        id="lastname"
-        name="lastname"
-        label="Lastname"
-        fullWidth
-        variant="standard"
-        value={modifiedDoctorInfo.lastname || ''}
-        onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, lastname: e.target.value })}
-      />
-      <TextField
-        id="password"
-        name="password"
-        label="Password"
-        fullWidth
-        variant="standard"
-        value={modifiedDoctorInfo.password || ''}
-        onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, password: e.target.value })}
-      />
-      <TextField
-        id="phone"
-        name="phone"
-        label="Phone"
-        fullWidth
-        variant="standard"
-        value={modifiedDoctorInfo.phone || ''}
-        onChange={(e) => onModifyDoctorInfoChange({ ...modifiedDoctorInfo, phone: e.target.value })}
-      />
-      <TextField
+    id="birthday"
+    name="birthday"
+    label="Birthday"
+    fullWidth
+    variant="standard"
+    type="date" // Use type 'date' for date input
+    value={modifiedDoctorInfo.birthday || ''}
+    onChange={(e) =>
+      onModifyDoctorInfoChange({ ...modifiedDoctorInfo, birthday: e.target.value })
+    }
+  />
+        <TextField
         id="speciality"
         name="speciality"
+        select
         label="Speciality"
         fullWidth
         variant="standard"
         value={modifiedDoctorInfo.speciality || ''}
         onChange={(e) =>
           onModifyDoctorInfoChange({ ...modifiedDoctorInfo, speciality: e.target.value })
-        }
-      />
-      <Button variant="contained" color="primary" onClick={onModify}>
-        Modify
-      </Button>
+        } // Update 'speciality' state
+      >
+        {specialties.map((specialty) => (
+          <MenuItem key={specialty} value={specialty}>
+            {specialty}
+          </MenuItem>
+        ))}
+      </TextField>
+        <Button variant="contained" color="primary" onClick={onModify}>
+          Modify
+        </Button>
+      </div>
     </div>
+  </div>
+  
   );
 }
 
 export default function ModifierMedcin() {
+  const [doctorInfo, setDoctorInfo] = useState({}); 
+
   const [searchRpps, setSearchRpps] = useState('');
-  const [doctorInfo, setDoctorInfo] = useState({});
-  const [doctorsData, setDoctorsData] = useState([
-    {
-      id: 1,
-      rpps: '123456789',
-      name: 'Dr. Smith',
-      email: 'dr.smith@example.com', // Add email field
-      selectedImage: 'image_path.jpg', // Add selectedImage field
-      lastname: 'Smith', // Add lastname field
-      password: 'password123', // Add password field
-      phone: '123-456-7890', // Add phone field
-      speciality: 'Cardiology', // Add speciality field
-      schedule: {
-        '2023-09-01': ['Morning', 'Afternoon'],
-        '2023-09-05': ['Morning'],
-      },
-    },
-    {
-      id: 2,
-      rpps: '987654321',
-      name: 'Dr. Johnson',
-      email: 'dr.johnson@example.com', // Add email field
-      selectedImage: 'image_path2.jpg', // Add selectedImage field
-      lastname: 'Johnson', // Add lastname field
-      password: 'johnson456', // Add password field
-      phone: '987-654-3210', // Add phone field
-      speciality: 'Dermatology', // Add speciality field
-      schedule: {
-        '2023-09-01': ['Afternoon'],
-        '2023-09-02': ['Morning', 'Afternoon'],
-      },
-    },
-    // Add more doctors and their schedules here
-  ]);
+  const [error, setError] = useState(null);// Add a state for the medecinRpps
+
 
   const [modifiedDoctorInfo, setModifiedDoctorInfo] = useState({
+    birthday:'',
     name: '',
     email: '',
     selectedImage: '', // Store the base64 data URL of the image
@@ -166,28 +186,64 @@ export default function ModifierMedcin() {
 
   
 
-  const handleSearch = () => {
-    // Search for the doctor in your doctorsData using searchRpps
-    const foundDoctor = doctorsData.find((doctor) => doctor.rpps === searchRpps);
+  // const handleSearch = () => {
+  //   // Search for the doctor in your doctorsData using searchRpps
+  //   const foundDoctor = doctorsData.find((doctor) => doctor.rpps === searchRpps);
 
-    if (foundDoctor) {
-      setDoctorInfo(foundDoctor);
-    } else {
-      // Handle doctor not found
-      setDoctorInfo({});
-    }
+  //   if (foundDoctor) {
+  //     setDoctorInfo(foundDoctor);
+  //   } else {
+  //     // Handle doctor not found
+  //     setDoctorInfo({});
+  //   }
+  // };
+
+  
+  const handleSearch = () => {
+    // Replace this with your express server URL
+   
+    axios.post("http://localhost:3002/searchMedecin", { rpps: searchRpps }) // Use axios.get()
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          setError(data.error);
+        } else {
+          const medecin = data.data; // Access the actual data object
+
+          console.log("Medecin:", medecin);
+          setDoctorInfo(medecin);
+          setModifiedDoctorInfo({
+            ...modifiedDoctorInfo,
+            rpps: medecin[0].rpps,
+            id: medecin[0].id,
+          });
+  
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching medecin:", error);
+        setError("Failed to fetch medecin");
+      });
   };
 
+
   const handleModify = () => {
-    // Update the doctor's information in your doctorsData
-    const updatedDoctorsData = doctorsData.map((doctor) => {
-      if (doctor.rpps === searchRpps) {
-        return { ...doctor, ...modifiedDoctorInfo };
+    console.log(modifiedDoctorInfo.rpps+" "+modifiedDoctorInfo.email+" "+ modifiedDoctorInfo.lastname+" "+ modifiedDoctorInfo.phone);
+    axios
+    .post("http://localhost:3002/modifyMedecin", modifiedDoctorInfo)
+    .then((response) => {
+      const data = response.data;
+      if (data.error) {
+        setError(data.error);
+      } else {
+        console.log("Medecin modified successfully");
+        // You can update the doctor's information in your component state or perform any other necessary actions.
       }
-      return doctor;
+    })
+    .catch((error) => {
+      console.error("Error modifying medecin:", error);
+      setError("Failed to modify medecin");
     });
-    setDoctorsData(updatedDoctorsData);
-    setModifiedDoctorInfo({}); // Clear the modified data after update
   };
   const [toggleBtn, setToggleBtn] = useState(true);
   
@@ -208,9 +264,10 @@ export default function ModifierMedcin() {
           Search
         </Button>
       </div>
+      
 
-      {Object.keys(doctorInfo).length > 0 && <DoctorInfo doctorInfo={doctorInfo} />}
-
+      {doctorInfo && Object.keys(doctorInfo).length > 0 && <DoctorInfo doctorInfo={doctorInfo} />}
+      <div  className='modify-doctor-info'>
       {Object.keys(doctorInfo).length > 0 && (
         <ModifyDoctorInfo
           modifiedDoctorInfo={modifiedDoctorInfo}
@@ -218,6 +275,7 @@ export default function ModifierMedcin() {
           onModify={handleModify}
         />
       )}
+      </div>
     </div>
     </div>
   );

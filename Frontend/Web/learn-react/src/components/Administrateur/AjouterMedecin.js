@@ -1,59 +1,89 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../../css/AjouterMedecin.css"; // Import the CSS file
-import Button from '@mui/material/Button'; // Import Button component from Material-UI
+import "../../css/AjouterMedecin.css";
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import SideBar2 from './SideBar2';
+import MenuItem from '@mui/material/MenuItem';
+
+const specialties = [
+  "anesthésiologie",
+  "cardiologie",
+  "dermatologie",
+  "endocrinologie",
+  "gastro-entérologie",
+  "génétique médicale",
+  "gériatrie",
+  "hématologie",
+  "immunologie clinique et allergie",
+  "néphrologie",
+  "neurologie",
+  "pédiatrie",
+  "pneumologie",
+  "rhumatologie",
+  // Add more specialties as needed
+]
 
 
 const AjouterMedecin = () => {
-    const [toggleBtn, setToggleBtn] = useState(true);
-    const [birthday, setBirthday] = useState("");
-    const [email, setEmail] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null); // Store the selected image
-    const [lastname, setLastname] = useState("");
-    const [name, setName] = useState("");
-    const [password, setPassword] = useState("");
-    const [phone, setPhone] = useState("");
-    const [rpps, setRpps] = useState("");
-    const [speciality, setSpeciality] = useState("");
-  
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      const formData = new FormData();
-      formData.append("birthday", birthday);
-      formData.append("email", email);
-      formData.append("image", selectedImage); // Add the selected image to the form data
-      formData.append("lastname", lastname);
-      formData.append("name", name);
-      formData.append("password", password);
-      formData.append("phone", phone);
-      formData.append("rpps", rpps);
-      formData.append("speciality", speciality);
-  
-      try {
-        await axios.post("http://localhost:3002/addMedecin", formData);
-        console.log("Medecin added successfully!");
-      } catch (error) {
-        console.error("Error adding Medecin:", error);
-      }
-    };
+  const [toggleBtn, setToggleBtn] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [medecinData, setMedecinData] = useState({});
 
-    const handleImageChange = (e) => {
-      const file = e.target.files[0];
-      setSelectedImage(file); // Store the selected image in state
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Build form data
+    const formData = new FormData();
+    Object.keys(medecinData).forEach(key => {
+      if (medecinData[key]) { 
+        formData.append(key, medecinData[key]);
+      }  
+    });
+
+    try {
+      // Call API
+    
+      const formJson = Object.fromEntries(formData);
+      //console.log(formDataJson);
+      const response = await axios.post("http://localhost:3002/addMedecin", formJson);
+      console.log(response.data);
+        // Reset form
+      setMedecinData({
+        firstName: "",
+        lastname: "",
+        birthday: "",
+        email: "",
+        password: "",
+        phone: "",
+        rpps: "",
+        speciality: "",
+      });
+      setSelectedImage(null);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+ // Handle input changes
+ const handleInputChange = e => {
+  setMedecinData({
+    ...medecinData,
+    [e.target.name]: e.target.value
+  });
+}
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
 
   return (
     <div>
-        <SideBar2 toggleBtn={toggleBtn}/>
-    <div className="add-medecin-container">
-      <React.Fragment>
+      <SideBar2 toggleBtn={toggleBtn} />
+      <div className="add-medecin-container">
         <Typography variant="h6" gutterBottom>
           Add Medecin
         </Typography>
@@ -64,31 +94,37 @@ const AjouterMedecin = () => {
               id="firstName"
               name="firstName"
               label="First name"
+              value={medecinData.firstName}
               fullWidth
               autoComplete="given-name"
               variant="standard"
+              onChange={handleInputChange} // Update 'name' state
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <TextField
+          <TextField
               required
               id="lastName"
               name="lastName"
               label="Last name"
               fullWidth
               autoComplete="family-name"
+              value={medecinData.lastname}  // Should be "lastName" instead of "lastname"
               variant="standard"
+              onChange={handleInputChange} // Update 'lastname' state
             />
           </Grid>
           <Grid item xs={12}>
-            <TextField
+          <TextField
               required
               id="birthday"
               name="birthday"
-              //label="Birthday"
+              label="Birthday"
+              value={medecinData.birthday }  // Should be "birthday" instead of "birthday "
               type="date"
               fullWidth
               variant="standard"
+              onChange={handleInputChange} // Update 'birthday' state
             />
           </Grid>
           <Grid item xs={12}>
@@ -97,9 +133,11 @@ const AjouterMedecin = () => {
               id="email"
               name="email"
               label="Email"
+              value={medecinData.email} 
               fullWidth
               autoComplete="email"
               variant="standard"
+              onChange={handleInputChange} // Update 'email' state
             />
           </Grid>
           <Grid item xs={12}>
@@ -108,7 +146,7 @@ const AjouterMedecin = () => {
               accept="image/*"
               id="imageInput"
               name="imageInput"
-              onChange={(e) => handleImageChange(e)}
+              onChange={handleImageChange}
               style={{ display: 'none' }}
             />
             <label htmlFor="imageInput">
@@ -117,63 +155,87 @@ const AjouterMedecin = () => {
               </Button>
             </label>
             {selectedImage && (
-              <div>
-                <Typography variant="body1">Selected Image:</Typography>
-                <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
-              </div>
-            )}
+      <div>
+        <Typography variant="body1">Selected Image:</Typography>
+        <img
+       
+          src={URL.createObjectURL(selectedImage)}
+          alt="Selected"
+          style={{ maxHeight: '20px', width: 'auto' }} // Apply inline styles to limit the size
+        />
+      </div>
+    )}
+
           </Grid>
           <Grid item xs={12}>
-        <TextField
-          required
-          id="password"
-          name="password"
-          label="Password"
-          type="password"
-          fullWidth
-          autoComplete="new-password"
-          variant="standard"
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          id="phone"
-          name="phone"
-          label="Phone"
-          fullWidth
-          variant="standard"
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          id="rpps"
-          name="rpps"
-          label="RPPS (Registration Number)"
-          fullWidth
-          variant="standard"
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <TextField
-          required
-          id="speciality"
-          name="speciality"
-          label="Speciality"
-          fullWidth
-          variant="standard"
-        />
-      </Grid>
+            <TextField
+              required
+              id="password"
+              name="password"
+              label="Password"
+              type="password"
+              value={medecinData.password } 
+              fullWidth
+              autoComplete="new-password"
+              variant="standard"
+              onChange={handleInputChange} // Update 'password' state
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="phone"
+              name="phone"
+              label="Phone"
+              fullWidth
+              variant="standard"
+              value={medecinData.phone} 
+              onChange={handleInputChange} // Update 'phone' state
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="rpps"
+              name="rpps"
+              label="RPPS (Registration Number)"
+              fullWidth
+              variant="standard"
+              value={medecinData.rpps} 
+              onChange={handleInputChange} // Update 'rpps' state
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              id="speciality"
+              name="speciality"
+              select
+              label="Speciality"
+              fullWidth
+              variant="standard"
+              value={medecinData.speciality } 
+              onChange={handleInputChange} // Update 'speciality' state
+            >
+              {specialties.map((specialty) => (
+                <MenuItem key={specialty} value={specialty}>
+                  {specialty}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Grid>
         </Grid>
         <div className="add-medecin-buttons">
-          <Button variant="contained" color="primary" onClick={handleSubmit} className="add-medecin-button-add">
+       
+          <Button onClick={handleSubmit} variant="contained" color="primary"  className="add-medecin-button-add">
+
             Add Medecin
           </Button>
+        
           <Button variant="outlined" color="secondary" className="add-medecin-button-cancel">
             Cancel
           </Button>
+         
         </div>
-      </React.Fragment>
-    </div>
+
+      </div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const firebaseApp = initializeApp({
   appId: "1:806510731200:web:f5c2e8a2eb6b13990ff225",
   measurementId: "G-N3N921QWM0",
 });
-
+const db = getFirestore(firebaseApp);
 const DemandemedecinCol = collection(db, "DemandeMedcin");
 class DemandeMedecinDao{
     static async addDemandeMedecin(demandeMedecinData) {

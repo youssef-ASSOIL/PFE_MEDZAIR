@@ -8,6 +8,7 @@ const { getFirestore, collection, getDocs, addDoc, query, where } = require("fir
 const DemandeMedcinB = require("./Business/DemandeMedecinB");
 const AdminBusiness = require("./Business/AdminBusiness");
 const GestionMedecin = require("./Business/GestionMedecins");
+const GestionHospital = require("./Business/GestionHospitals");
 
 const app = express();
 const port = 3002;
@@ -153,31 +154,6 @@ app.post("/submitFormDemandeData", async (req, res) => {
   }
 });
 
-app.post("/getHospitalDataByEmail", async (req, res) =>{
-
-  try {
-    const snapshot = await getDocs(hospitalCol);
-    let foundData ={};
-
-    snapshot.forEach((doc) => {
-      if (doc.data().email === user) {
-        foundData = {
-          id: doc.id,
-          name: doc.data().name,
-          region: doc.data().region,
-          email: doc.data().email,
-          img: doc.data().imagePath || '',
-        };
-      }
-    });
-    console.log(foundData);
-    res.status(200).json(foundData);
-   
-  } catch (error) {
-    console.error("Error fetching hospital data:", error);
-    
-  }
-});
 
 
 onAuthStateChanged(auth, (user) => {
@@ -314,6 +290,21 @@ app.post("/searchMedecin", async (req, res) => {
   }
 });
 
+app.post("/getHospitalDataByEmail", async (req, res) =>{
+
+  try {
+    
+    const mail= req.body.email;
+
+    const hospital = await GestionHospital.SearchHospitalByMail(mail); // Implement this function.
+    res.status(200).json({ message: "hospital found", data: hospital });
+   
+  } catch (error) {
+    console.error("Error fetching hospital data:", error);
+    
+  }
+});
+
 app.post("/modifyMedecin", async (req, res) => {
   try {
     // Extract the necessary data from the request body.
@@ -330,6 +321,22 @@ app.post("/modifyMedecin", async (req, res) => {
   }
 });
 
+app.post("/modifyHospitalByEmail", async (req, res) => {
+    try {
+      // Extract the necessary data from the request body.
+      const hospital = req.body.data;
+
+      const hospitalString = JSON.stringify(hospital);
+      console.log(hospitalString);
+      // Call the business logic function to modify the Medecin.
+      GestionHospital.ModifierHospital(hospitalString);
+
+      res.status(200).json({ message: "Medecin modified successfully" });
+    } catch (error) {
+      console.error("Error modifying Medecin:", error);
+      res.status(500).json({ error: "Failed to modify Medecin" });
+    }
+});
 
 // Route to delete a Medecin by ID
 app.delete("/deleteMedecin", async (req, res) => {
@@ -339,6 +346,19 @@ app.delete("/deleteMedecin", async (req, res) => {
     // Assuming you have a function to delete a Medecin by ID in GestionMedecin.
     await GestionMedecin.SupprimerMedecin(medecinId);
 
+    res.status(200).json({ message: "Medecin deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting Medecin:", error);
+    res.status(500).json({ error: "Failed to delete Medecin" });
+  }
+});
+app.delete("/deleteHospital", async (req, res) => {
+  try {
+    const hospitalId = req.body.id; // Get the Medecin ID from the request body.
+
+    // Assuming you have a function to delete a Medecin by ID in GestionMedecin.
+   console.log("xxxxx:"+hospitalId);
+    await GestionHospital.SupprimerHospital(hospitalId);
     res.status(200).json({ message: "Medecin deleted successfully" });
   } catch (error) {
     console.error("Error deleting Medecin:", error);

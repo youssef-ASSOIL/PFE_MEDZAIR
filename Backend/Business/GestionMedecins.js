@@ -12,7 +12,8 @@ class GestionMedecin{
     static searchMedecinByRpps(rpps){
         return MedecinDao.searchMedecins(rpps);
     }
-
+    
+      
     static modifierMedecin(medecinString){
     //    MedecinDao.modifyMedecin(medecin.id, {name:newName,imagePath:newImagePath, data:newData,region:newRegion})
     const medecin = JSON.parse(medecinString);

@@ -3,7 +3,7 @@ const path = require("path");
 const cors = require("cors");
 const { initializeApp } = require("firebase/app");
 const { getAuth, signInWithEmailAndPassword, onAuthStateChanged } = require("firebase/auth");
-const { getFirestore, collection, getDocs, addDoc, query, where } = require("firebase/firestore");
+const { getFirestore, collection, getDocs, addDoc, query, where, doc, setDoc, deleteDoc } = require("firebase/firestore");
 
 const app = express();
 const port = 3002;
@@ -12,9 +12,7 @@ let user="";
 app.use(cors()); // Allow all origins, you can customize this as needed
 app.use(express.json());
 
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
-const hospitalCol = collection(db, "Hospital");
+
 
 const firebaseApp = initializeApp({
     apiKey: "AIzaSyADwW3N6qrFVVAtpGCbhjETuFVTdYyei-o",
@@ -28,6 +26,9 @@ const firebaseApp = initializeApp({
     measurementId: "G-N3N921QWM0",
   });
 
+  const auth = getAuth(firebaseApp);
+  const db = getFirestore(firebaseApp);
+  const hospitalCol = collection(db, "Hospital");
 class HospitalDao {
 
     static async addHospital(hospitalData) {
@@ -49,9 +50,9 @@ class HospitalDao {
       }
     }
   
-    static async searchHospitals(criteria) {
+    static async searchHospitalByMail(mail) {
       try {
-        const q = query(hospitalCol, where("criteriaField", "==", criteria)); // Replace 'criteriaField' with your actual field and criteria
+        const q = query(hospitalCol, where("email", "==", mail)); // Replace 'criteriaField' with your actual field and criteria
         const querySnapshot = await getDocs(q);
         const hospitals = [];
         querySnapshot.forEach((doc) => {
@@ -66,12 +67,16 @@ class HospitalDao {
   
     static async modifyHospital(hospitalId, newData) {
       try {
-        await setDoc(doc(db, "Hospital", hospitalId), newData, { merge: true });
+        console.log('Updated data', newData);
+        const docRef = doc(db, "Hospital", hospitalId);
+        await setDoc(docRef, newData);
+   
       } catch (error) {
         console.error("Error modifying hospital:", error);
         throw error;
       }
     }
+   
   
     static async loadAllHospitals() {
       try {

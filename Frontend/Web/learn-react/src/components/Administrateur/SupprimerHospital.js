@@ -4,33 +4,48 @@ import "../../css/SupprimerHospital.css"; // Import the CSS file
 import SideBar2 from "./SideBar2";
 const SupprimerHospital = () => {
   const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
   const [hospital, setHospital] = useState(null);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [toggleBtn, setToggleBtn] = useState(true);
   
-  useEffect(() => {
-    if (email) {
-      axios
-        .get(`http://localhost:3002/getHospitalDataByEmail?email=${email}`)
-        .then((response) => {
-          setHospital(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching hospital data:", error);
-        });
-    }
-  }, [email]);
+  const handleSearch = () => {
+    // Replace this with your express server URL
+   
+    axios.post("http://localhost:3002/getHospitalDataByEmail", { email: email }) // Use axios.get()
+      .then((response) => {
+        const data = response.data;
+        if (data.error) {
+          setHospital(null); // Clear Medecin data if not found
+          console.log(data.error);
+        } 
+
+        console.log(data.data[0]);
+          setHospital(data.data[0]);
+      })
+      .catch((error) => {
+        console.error("Error fetching Hospital:", error);
+        
+      });
+  };
+  
 
   const handleDelete = async () => {
-    if (hospital && confirmDelete) {
-      try {
-        await axios.post(`http://localhost:3002/deleteHospitalByEmail?email=${email}`);
-        console.log("Hospital deleted successfully!");
-      } catch (error) {
-        console.error("Error deleting hospital:", error);
+    try {
+      if (hospital) {
+        // Send a DELETE request to delete the Medecin by ID
+        console.log(hospital.id);
+        const response = await axios.delete("/deleteHospital", { data: { id: hospital.id } });
+        if (response.status === 200) {
+          setHospital(null);
+          setConfirmDelete(true);
+        }
       }
+    } catch (error) {
+      console.error("Error deleting Medecin:", error);
     }
   };
+  
 
   return (
     <div>
@@ -41,6 +56,9 @@ const SupprimerHospital = () => {
         <div>
           <label>Email:</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <button type="button" onClick={handleSearch}>
+              Search Hospital
+            </button>
         </div>
         {hospital && (
           <div className="hospital-details">

@@ -7,25 +7,30 @@ class GestionHospital{
     }
 
     static SupprimerHospital(email){
-       this.hospitals=this.hospitals.filter(hospital=>hospital.email!=email);
-       HospitalDao.deleteHospital(email);
+      HospitalDao.deleteHospital(email);
       }
+     
     
-      static ModifierHospital(email, newName, newImagePath, newData, newRegion) {
-        const hospitalToModify = this.hospitals.find((hospital) => hospital.email === email);
-        const hospitalsToUpdate = HospitalDao.searchHospitals(email);
-        this.modifyHospitalInDao(hospital.id, {name:newName,imagePath:newImagePath, data:newData,region:newRegion})
+      static ModifierHospital(hospitalString) {
+        const hospital = JSON.parse(hospitalString);
         
-        if (hospitalToModify) {
-          hospitalToModify.name = newName;
-          hospitalToModify.imagePath = newImagePath;
-          hospitalToModify.data = newData;
-          hospitalToModify.region = newRegion;
-        } else {
-          console.log("Hospital not found with the provided email.");
-        }
+        const hospitalId = hospital.id; 
+       
+        const updatedData = {
+            name: hospital.name,
+            imagePath:hospital.imagePath,
+            region:hospital.region,
+            email:hospital.email,
+          };
+          HospitalDao.modifyHospital(hospitalId,updatedData);
+        
       }
+      
 
+
+      static SearchHospitalByMail(mail){
+        return HospitalDao.searchHospitalByMail(mail);
+      }
        
       static loadAllHospitals(){
         this.hospitals=HospitalDao.loadAllHospitals();

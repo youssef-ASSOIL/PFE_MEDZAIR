@@ -11,6 +11,9 @@ export default function AjouterHospital() {
   const [email, setEmail] = useState("");
   const [image, setImage] = useState(null); 
   const [password, setPassword] = useState("");
+
+  const [imagePath, setImagePath] = useState("");
+  
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
   };
@@ -21,8 +24,9 @@ export default function AjouterHospital() {
     formData.append("name", name);
     formData.append("region", region);
     formData.append("email", email);
-    formData.append("image", image); // Append the selected image file
+    // formData.append("image", image); // Append the selected image file
     formData.append("password", password);
+    formData.append("imagePath", imagePath);
 
     try {
         await axios.post("http://localhost:3002/addHospital", formData, {
@@ -43,7 +47,7 @@ export default function AjouterHospital() {
     <h2>AjouterHospital</h2>
     <form className="add-hospital-form" onSubmit={handleSubmit}>
         <div>
-          <label>Name:</label>
+          <label>Name Hospital:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div>
@@ -56,7 +60,9 @@ export default function AjouterHospital() {
         </div>
         <div>
           <label>Image:</label>
-          <input type="file" accept="image/*" onChange={handleImageChange} />
+          {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
+          <input value={imagePath} onChange={(e) => setImagePath(e.target.value)} />
+       
         </div>
         <div>
           <label>Password:</label>

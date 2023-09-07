@@ -8,33 +8,56 @@ export default function ModifierHospital() {
     const [hospital, setHospital] = useState(null);
     const [newRegion, setNewRegion] = useState("");
     const [toggleBtn, setToggleBtn] = useState(true);
-  
-  useEffect(() => {
-    if (email) {
-      axios
-        .get(`http://localhost:3002/getHospitalDataByEmail?email=${email}`)
+    const [newImagePath, setnewImagePath] = useState("");
+    const [newName, setnewName] = useState("");
+    const [Id, setId] = useState("");
+    
+    const handleSearch = () => {
+      // Replace this with your express server URL
+     
+      axios.post("http://localhost:3002/getHospitalDataByEmail", { email: email }) // Use axios.get()
         .then((response) => {
-          setHospital(response.data);
+          const data = response.data;
+          console.log(data.data[0]);
+            setHospital(data.data[0]);
+            setEmail(data.data[0].email);
+            setId(data.data[0].id);
         })
         .catch((error) => {
-          console.error("Error fetching hospital data:", error);
+          console.error("Error fetching medecin:", error);
+          
         });
-    }
-  }, [email]);
+    };
+  
     const handleModify = async (e) => {
-        e.preventDefault();
-    
-        const formData = {
-          region: newRegion,
-        };
-    
-        try {
-          await axios.post(`http://localhost:3002/modifyHospitalByEmail?email=${email}`, formData);
-          console.log("Hospital modified successfully!");
-        } catch (error) {
-          console.error("Error modifying hospital:", error);
-        }
+      e.preventDefault();
+  
+      if (!hospital) {
+        console.error("Hospital data not loaded.");
+        return;
+      }
+  
+      const formData = {
+        id:Id,
+        region: newRegion,
+        email: email,
+        name:newName,
+        imagePath:newImagePath,
       };
+      console.log(newRegion);
+      console.log(newName);
+      console.log(newImagePath);
+      
+  
+      try {
+        // Modify hospital's region using email as identifier
+        await axios.post("http://localhost:3002/modifyHospitalByEmail", {data:formData});
+  
+        console.log("Hospital modified successfully!");
+      } catch (error) {
+        console.error("Error modifying hospital:", error);
+      }
+    };
     return (
         <div>
      <SideBar2 toggleBtn={toggleBtn}/>
@@ -44,6 +67,9 @@ export default function ModifierHospital() {
       <div>
         <label>Email:</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <button type="button" onClick={handleSearch}>
+              Search Doctor
+        </button>
       </div>
       {hospital && (
         <div className="hospital-details">
@@ -58,7 +84,13 @@ export default function ModifierHospital() {
         <div className="modify-region">
           <label>New Region:</label>
           <input type="text" value={newRegion} onChange={(e) => setNewRegion(e.target.value)} />
+          <label>imagePath:</label>
+          <input type="text" value={newImagePath} onChange={(e) => setnewImagePath(e.target.value)} />
+          <label>New Name:</label>
+          <input type="text" value={newName} onChange={(e) => setnewName(e.target.value)} />
+          
         </div>
+        
       )}
       <button type="submit" disabled={!hospital}>
         Modify Hospital

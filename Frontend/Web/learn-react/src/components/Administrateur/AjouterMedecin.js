@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import SideBar2 from './SideBar2';
 import MenuItem from '@mui/material/MenuItem';
+import Navbar2 from "../NavBar2";
 
 const specialties = [
   "anesthésiologie",
@@ -80,8 +81,10 @@ const AjouterMedecin = () => {
     setSelectedImage(file);
   };
 
+  const toggle = () => setToggleBtn((val) => !val);
   return (
     <div>
+      <Navbar2 setToggle={toggle} />
       <SideBar2 toggleBtn={toggleBtn} />
       <div className="add-medecin-container">
         <Typography variant="h6" gutterBottom>

@@ -1,67 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Avatar } from '@mui/material';
 import "../../css/ListerHospital.css"
 import SideBar2 from './SideBar2';
-
-const columns = [
-  { id: 'email', label: 'Email' },
-  { id: 'imagePath', label: 'Image Path' },
-  { id: 'name', label: 'Name' },
-  { id: 'region', label: 'Region' },
-];
-
-function createData(email, imagePath, name, region) {
-  return { email, imagePath, name, region };
-}
-
-
- const doctors = [
-    {
-      email: "example1@email.com",
-      image: "https://media.licdn.com/dms/image/D4E03AQGRhUj6l8vfBg/profile-displayphoto-shrink_800_800/0/1665924231705?e=2147483647&v=beta&t=5h4furBSItPLL7Rlubqh_H8ZiLpIKnqBy_p3fNd3ehs",
-      hospital: "Hospital A",
-      region: "Region X",
-    },
-    {
-        email: "example1@email.com",
-        image: "https://media.licdn.com/dms/image/C5603AQFmm8_egAcZpA/profile-displayphoto-shrink_200_200/0/1641904982500?e=1697673600&v=beta&t=TTrnnIEURMiSBvg-JSsqRl3m4wdhZx0hL8KtC7PTn3A",
-        hospital: "KETTANI Clinique",
-        region: "Region X",
-      },
-    // Add more doctor objects as needed
-  ];
+import axios from 'axios';
+import Navbar2 from '../NavBar2';
 
 export default function ListerHospitals() {
-    const [toggleBtn, setToggleBtn] = useState(true);
-  
+  const [toggleBtn, setToggleBtn] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [hospitals, setHospitals] = useState([]);
+
+  useEffect(() => {
+    const fetchHospitals = async () => {
+      try {
+        const response = await axios.post('http://localhost:3002/getHospitals');
+        if (response.status === 200) {
+          const hospitalsData = response.data;
+          setHospitals(hospitalsData);
+          setLoading(false); // Set loading to false once data is fetched
+        }
+      } catch (error) {
+        console.error('Error fetching hospitals:', error);
+      }
+    };
+    fetchHospitals();
+  }, []);
+
+  const toggle = () => setToggleBtn((val) => !val);
   return (
     <div>
-        <SideBar2 toggleBtn={toggleBtn}/>
-    <TableContainer component={Paper} className="TableContainer">
-      <Table>
-        <TableHead className="TableHead">
-          <TableRow>
-            
-            <TableCell className="TableCell">Email</TableCell>
-            <TableCell className="TableCell">Image</TableCell>
-            <TableCell className="TableCell">Hospital</TableCell>
-            <TableCell className="TableCell">Region</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody className="TableBody">
-          {doctors.map((doctor, index) => (
-            <TableRow key={index}>
-              <TableCell className="TableCell">{doctor.hospital}</TableCell>
-              <TableCell className="TableCell">{doctor.email}</TableCell>
-              <TableCell className="TableCell">
-                <Avatar alt={doctor.name} src={doctor.image} className="Avatar" />
-              </TableCell>
-              <TableCell className="TableCell">{doctor.region}</TableCell>
+      <Navbar2 setToggle={toggle} />
+      <SideBar2 toggleBtn={toggleBtn} />
+      <TableContainer component={Paper} className="TableContainer">
+        <Table>
+          <TableHead className="TableHead">
+            <TableRow>
+              <TableCell className="TableCell">Email</TableCell>
+              <TableCell className="TableCell">Image Path</TableCell>
+              <TableCell className="TableCell">Name</TableCell>
+              <TableCell className="TableCell">Region</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody className="TableBody">
+            {loading ? (
+              <TableRow>
+                <TableCell colSpan={4} className="TableCell">
+                  Loading...
+                </TableCell>
+              </TableRow>
+            ) : (
+              hospitals.map((hospital, index) => (
+                <TableRow key={index}>
+                  <TableCell className="TableCell">{hospital.email || 'N/A'}</TableCell>
+                  <TableCell className="TableCell">
+                    {hospital.imagePath ? (
+                      <Avatar alt={hospital.name || 'N/A'} src={hospital.imagePath} className="Avatar" />
+                    ) : (
+                      <span className="N/A">N/A</span>
+                    )}
+                  </TableCell>
+
+                  <TableCell className="TableCell">{hospital.name || 'N/A'}</TableCell>
+                  <TableCell className="TableCell">{hospital.region || 'N/A'}</TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </div>
   );
 }

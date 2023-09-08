@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../../css/SupprimerMedecin.css"; // Import the CSS file
 import SideBar2 from "./SideBar2";
+import Navbar2 from "../NavBar2";
 
 const SupprimerMedecin = () => {
   
@@ -53,8 +54,10 @@ const SupprimerMedecin = () => {
     }
   };
 
+  const toggle = () => setToggleBtn((val) => !val);
   return (
     <div>
+      <Navbar2 setToggle={toggle} />
       <SideBar2 toggleBtn={toggleBtn} />
       <div className="delete-medecin-container">
         <h2>Delete Doctor (Medecin)</h2>

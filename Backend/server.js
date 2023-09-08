@@ -95,15 +95,20 @@ app.post("/signIn", validateSignInCredentials, (req, res) => {
 //     res.status(500).json({ error: "Failed to add hospital" });
 //   }
 // });
+
 app.post("/addHospital", async (req, res) => {
-  const formData = req.body;
+  app.use(express.json()); // Use express.json() middleware
+
+  const jsonData = req.body; // Now you can access the JSON data from the request body
+
   try {
-    GestionHospital.AjouterHospital(formData);
+    console.log("Hamza:", jsonData);
+    GestionHospital.AjouterHospital(jsonData); // Call the function to add the hospital to the database
     console.log("Hospital added successfully!");
-    res.status(200).json({ message: "Hospital added successfully!" });
+    res.status(200).json({ message: "Hospital added successfully!" }); // Send a success response
   } catch (error) {
     console.error("Error adding hospital:", error);
-    res.status(500).json({ error: "Failed to add hospital" });
+    res.status(500).json({ error: "Failed to add hospital" }); // Send an error response
   }
 });
 
@@ -336,6 +341,28 @@ app.post("/modifyHospitalByEmail", async (req, res) => {
       console.error("Error modifying Medecin:", error);
       res.status(500).json({ error: "Failed to modify Medecin" });
     }
+});
+
+app.post("/getMedecins", async (req, res) => {
+  try {
+    // Call the business logic function to fetch Medecins.
+    const medecins = await GestionMedecin.loadAllMedecin(); // Implement this function.
+    console.log(medecins);
+    res.status(200).json({ message: "Medecins fetched successfully", data: medecins });
+  } catch (error) {
+    console.error("Error fetching Medecins:", error);
+    res.status(500).json({ error: "Failed to fetch Medecins" });
+  }
+});
+app.post("/getHospitals", async (req, res) => {
+  try {
+    const hospitals = await GestionHospital.loadAllHospitals();
+    console.log(hospitals);
+    res.status(200).json(hospitals); // Send JSON response
+  } catch (error) {
+    console.error("Error fetching Hospitals:", error);
+    res.status(500).json({ error: "Failed to fetch Hospitals" });
+  }
 });
 
 // Route to delete a Medecin by ID

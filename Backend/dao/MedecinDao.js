@@ -88,6 +88,7 @@ class MedecinDao{
           throw error;
         }
       }
+      
     
       static async addDemandeMedecin(demandeMedecinData) {
         try {
@@ -98,19 +99,7 @@ class MedecinDao{
           throw error;
         }
       }
-      static async loadAllMedecins(){
-        try {
-            const querySnapshot = await getDocs(medecinCol);
-            const medecins = [];
-            querySnapshot.forEach((doc) => {
-                medecins.push({ id: doc.id, ...doc.data() });
-            });
-            return medecins;
-          } catch (error) {
-            console.error("Error loading medecins:", error);
-            throw error;
-          }
-      }
+      
     
 }
 module.exports = MedecinDao;

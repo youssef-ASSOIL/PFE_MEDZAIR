@@ -77,20 +77,31 @@ class HospitalDao {
       }
     }
    
-  
-    static async loadAllHospitals() {
-      try {
-        const querySnapshot = await getDocs(collection(db, "Hospital"));
-        const hospitals = [];
-        querySnapshot.forEach((doc) => {
-          hospitals.push({ id: doc.id, ...doc.data() });
+    
+    
+   static async loadAllHospitals () {
+    try {
+      const snapshot = await getDocs(hospitalCol);
+      const data = [];
+      snapshot.forEach((doc) => {
+        const hospitalData = doc.data();
+        data.push({
+          id: doc.id,
+          email:hospitalData.email || '',
+          imagePath:hospitalData.imagePath || '',
+          name:hospitalData.name || '',
+          password:hospitalData.password || '',
+          region:hospitalData.region || '',
         });
-        return hospitals;
-      } catch (error) {
-        console.error("Error loading hospitals:", error);
-        throw error;
-      }
+      });
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error("Error fetching medecin data:", error);
+      return [];
     }
+};
+    
   }
   
   module.exports = HospitalDao;

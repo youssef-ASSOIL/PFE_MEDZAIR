@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import "../../css/AjouterHopital.css"
 import axios from 'axios';
 import SideBar2 from './SideBar2';
+import Navbar2 from '../NavBar2';
 
 
 export default function AjouterHospital() {
@@ -18,30 +19,43 @@ export default function AjouterHospital() {
     setImage(e.target.files[0]);
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default behavior of the form
 
-    const formData = new FormData(); // Create a FormData object
-    formData.append("name", name);
-    formData.append("region", region);
-    formData.append("email", email);
-    // formData.append("image", image); // Append the selected image file
-    formData.append("password", password);
-    formData.append("imagePath", imagePath);
+  const jsonData = buildJSONData(); // Call the function to get JSON data
+  console.log("Kettani", jsonData);
 
-    try {
-        await axios.post("http://localhost:3002/addHospital", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data", // Set the correct content type
-          },
-        });
-        console.log("Hospital added successfully!");
-      } catch (error) {
-        console.error("Error adding hospital:", error);
-      }
+  try {
+    // Send a post request to the backend with the JSON data
+    const response = await fetch("http://localhost:3002/addHospital", {
+      method: "POST",
+      body: JSON.stringify(jsonData), // Stringify the JSON data before sending it
+      headers: {
+        "Content-Type": "application/json", // Set the content-type header to application/json
+      },
+    });
+    const data = await response.json(); // Parse the response data as JSON
+    console.log("Hospital added successfully!", data);
+  } catch (error) {
+    console.error("Error adding hospital:", error);
+  }
+      
   };
-
+  const buildJSONData = () => {
+    const jsonData = {
+      name: name,
+      region: region,
+      email: email,
+      imagePath: imagePath,
+      password: password,
+    };
+    return jsonData;
+  };
+  
+  
+  const toggle = () => setToggleBtn((val) => !val);
   return (
     <div>
+      <Navbar2 setToggle={toggle} />
         <SideBar2 toggleBtn={toggleBtn}/>
     <div className="add-hospital-container">
     <h2>AjouterHospital</h2>
@@ -61,7 +75,7 @@ export default function AjouterHospital() {
         <div>
           <label>Image:</label>
           {/* <input type="file" accept="image/*" onChange={handleImageChange} /> */}
-          <input value={imagePath} onChange={(e) => setImagePath(e.target.value)} />
+          <input  type="text" value={imagePath} onChange={(e) => setImagePath(e.target.value)} />
        
         </div>
         <div>

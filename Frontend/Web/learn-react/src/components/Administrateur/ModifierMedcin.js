@@ -8,6 +8,7 @@ import SideBar2 from './SideBar2';
 import axios from 'axios';
 import "../../css/DoctorinfoModify.css"
 import MenuItem from '@mui/material/MenuItem';
+import Navbar2 from '../NavBar2';
 
 const specialties = [
   "anesthésiologie",
@@ -234,8 +235,10 @@ export default function ModifierMedcin() {
   };
   const [toggleBtn, setToggleBtn] = useState(true);
   
+  const toggle = () => setToggleBtn((val) => !val);
   return (
     <div>
+      <Navbar2 setToggle={toggle} />
     <SideBar2 toggleBtn={toggleBtn}/>
     <div className="modify-medecin">
       <h2>Modify Medecin</h2>

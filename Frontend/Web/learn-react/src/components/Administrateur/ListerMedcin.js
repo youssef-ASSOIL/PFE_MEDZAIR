@@ -1,62 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import "../../css/ListerMedecins.css";
 import SideBar2 from './SideBar2';
+import axios from 'axios';
+import Navbar2 from '../NavBar2';
 
 export default function ListerMedcin() {
   const [medecinData, setMedecinData] = useState([]);
   const [toggleBtn, setToggleBtn] = useState(true);
   
-  // Assuming you fetch or set your medecinData using useEffect
+
   useEffect(() => {
-    // Replace this with actual data fetching or setting logic
-    const fetchedData = [
-      {
-        id: '1',
-        image: 'image_url_1',
-        name: 'John',
-        lastname: 'Doe',
-        speciality: 'Cardiologist',
-      
-        birthday: '1990-01-01',
-        email: 'john.doe@example.com',
-        imagePath: '/path/to/image1.jpg',
-        phone: '123-456-7890',
-        rpps: '1234567890',
-      },
-      {
-        id: '2',
-        image: 'image_url_1',
-        name: 'John',
-        lastname: 'Doe',
-        speciality: 'Cardiologist',
-       
-        birthday: '1990-01-01',
-        email: 'john.doe@example.com',
-        imagePath: '/path/to/image1.jpg',
-        phone: '123-456-7890',
-        rpps: '1234567890',
-      },
-      {
-        id: '2',
-        image: 'image_url_1',
-        name: 'John',
-        lastname: 'Doe',
-        speciality: 'Cardiologist',
-       
-        birthday: '1990-01-01',
-        email: 'john.doe@example.com',
-        imagePath: '/path/to/image1.jpg',
-        phone: '123-456-7890',
-        rpps: '1234567890',
-      },
-      // Add more medecin objects as needed
-    ];
-    setMedecinData(fetchedData);
+    const fetchMedecins= async () => {
+      try {
+        const response = await axios.post('http://localhost:3002/getMedecins');
+        if (response.status === 200) {
+          const medecinData = response.data;
+          setMedecinData(medecinData.data);
+        }
+      } catch (error) {
+        console.error('Error fetching hospitals:', error);
+      }
+    };
+    fetchMedecins();
   }, []);
 
+  
+  const toggle = () => setToggleBtn((val) => !val);
   return (
     
     <div>
+      <Navbar2 setToggle={toggle} />
         <SideBar2 toggleBtn={toggleBtn}/>
         
     <div className="allTable">
@@ -84,7 +57,14 @@ export default function ListerMedcin() {
                   {row.id.substring(0, 10)}
                 </td>
                 <td>
-                  <img src={row.image} alt="Profile" className="image" />
+                  <img
+                    src={row.imagePath}
+                    alt="Profile"
+                    className="image"
+                    onError={(e) => {
+                      e.target.src = '/path/to/default-image.jpg'; // Replace with a default image URL
+                    }}
+                  />
                 </td>
                 <td>{row.name}</td>
                 <td>{row.lastname}</td>

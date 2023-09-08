@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "../../css/ModifyHospital.css";
 import axios from 'axios';
 import SideBar2 from './SideBar2';
+import Navbar2 from '../NavBar2';
 
 export default function ModifierHospital() {
     const [email, setEmail] = useState("");
@@ -58,8 +59,11 @@ export default function ModifierHospital() {
         console.error("Error modifying hospital:", error);
       }
     };
+
+  const toggle = () => setToggleBtn((val) => !val);
     return (
         <div>
+          <Navbar2 setToggle={toggle} />
      <SideBar2 toggleBtn={toggleBtn}/>
     <div className="modify-hospital-container">
     <h2>Modify Hospital</h2>

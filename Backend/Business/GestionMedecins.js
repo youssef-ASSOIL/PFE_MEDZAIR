@@ -38,7 +38,7 @@ class GestionMedecin{
     }
     static loadAllMedecin(){
         return MedecinDao.loadAllMedecins();
-       }
+    }
 
 }
 

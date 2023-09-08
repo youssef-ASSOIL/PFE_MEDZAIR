@@ -33,7 +33,7 @@ class GestionHospital{
       }
        
       static loadAllHospitals(){
-        this.hospitals=HospitalDao.loadAllHospitals();
+        return HospitalDao.loadAllHospitals();
        }
 
 }

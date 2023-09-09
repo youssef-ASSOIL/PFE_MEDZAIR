@@ -13,6 +13,7 @@ const nav = [
   { text: "Modifier Hopital", link: "/ModifierHospital", icon: "home" },
   { text: "Supprimer Hopital", link: "/SupprimerHospital", icon: "home" },
   { text: "Lister Hopital", link: "/ListerHospitals", icon: "home" },
+  // { text: "Login demande", link: "/LoginDemande", icon: "home" },
  
 ];
 

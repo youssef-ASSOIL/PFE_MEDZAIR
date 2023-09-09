@@ -1,4 +1,5 @@
 const HospitalDao = require("../dao/HospitalDao");
+const MedecinAccepted = require("../dao/MedecinAccepted");
 
 class GestionHospital{
    
@@ -31,11 +32,19 @@ class GestionHospital{
       static SearchHospitalByMail(mail){
         return HospitalDao.searchHospitalByMail(mail);
       }
-       
+      static SearchbyUserMail(userMail){
+        return HospitalDao.searchHopitalInfo(userMail);
+      }
+      
       static loadAllHospitals(){
         return HospitalDao.loadAllHospitals();
        }
-
+       static MedecinAcceptedHospitalDemande(){
+          return MedecinAccepted.loadAcceptedMedecin();
+       }
+       static loadAcceptedMedecinWithEmail(mail){
+          return MedecinAccepted.loadAcceptedMedecinWithEmail(mail);
+       }
 }
 
 module.exports = GestionHospital;

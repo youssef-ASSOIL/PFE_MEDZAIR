@@ -13,6 +13,7 @@ const GestionHospital = require("./Business/GestionHospitals");
 const app = express();
 const port = 3002;
 let user="";
+let region ="";
 
 app.use(cors()); // Allow all origins, you can customize this as needed
 app.use(express.json());
@@ -74,7 +75,8 @@ app.post("/signIn", validateSignInCredentials, (req, res) => {
       console.log(userCredential);
       data = await SearchHospitalByMail(email);
       user=email;
-      console.log("Youssef "+user);
+      region=data.region;
+      console.log("Youssef "+region);
       res.status(200).json({ message: "Sign-in successful" ,data: data });
     })
     .catch((error) => {
@@ -149,13 +151,31 @@ app.post("/submitFormData", async (req, res) => {
 app.post("/submitFormDemandeData", async (req, res) => {
   try {
     const formData = req.body;
-    console.log("Received form data:", formData);
+    
+    formData.DemandeBy = user;
+
+    formData.region = region;
     DemandeMedcinB.addDemandeMedcinB(formData);
     console.log("Data added to Firestore successfully!");
     res.status(200).json({ message: "Data added to Firestore successfully!" });
   } catch (error) {
     console.error("Error adding data to Firestore:", error);
     res.status(500).json({ error: "Failed to add data to Firestore" });
+  }
+});
+
+
+app.post("/loadAcceptedMedecinWithEmail", async (req, res) => {
+  try {
+    const email = user; // Assuming 'user' is defined elsewhere in your code
+    
+    const acceptedData = await GestionHospital.loadAcceptedMedecinWithEmail(email); // Make sure to use 'await' here
+    hospitalString = JSON.stringify(acceptedData);
+    console.log("HELEOLO::"+hospitalString);
+    res.status(200).json({ message: "DATA IS HERE!", data: hospitalString });
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json({ error: "Failed to fetch data" });
   }
 });
 
@@ -309,6 +329,34 @@ app.post("/getHospitalDataByEmail", async (req, res) =>{
     
   }
 });
+app.post("/getHospitalDataByUserMail", async (req, res) => {
+
+  try { 
+    const email=user;
+    const hospital = await GestionHospital.SearchbyUserMail(email); // Implement this function.
+   const dataJson= JSON.stringify(hospital);
+    console.log("Amine :: " + dataJson);
+    res.status(200).json({ message: "hospital found", data: dataJson });
+
+  } catch (error) {
+    console.error("Error fetching hospital data:", error);
+
+  }
+});
+
+// app.post("/getHospitalDataByUserMail", async (req, res) =>{
+
+//   try {
+    
+//     const hospital = await GestionHospital.SearchHospitalByMail(user); // Implement this function.
+//     console.log("Amine :: "+hospital);
+//     res.status(200).json({ message: "hospital found", data: hospital });
+   
+//   } catch (error) {
+//     console.error("Error fetching hospital data:", error);
+    
+//   }
+// });
 
 app.post("/modifyMedecin", async (req, res) => {
   try {
@@ -383,8 +431,6 @@ app.delete("/deleteHospital", async (req, res) => {
   try {
     const hospitalId = req.body.id; // Get the Medecin ID from the request body.
 
-    // Assuming you have a function to delete a Medecin by ID in GestionMedecin.
-   console.log("xxxxx:"+hospitalId);
     await GestionHospital.SupprimerHospital(hospitalId);
     res.status(200).json({ message: "Medecin deleted successfully" });
   } catch (error) {

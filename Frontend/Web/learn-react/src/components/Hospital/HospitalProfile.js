@@ -5,19 +5,42 @@ import Navbar2 from "../NavBar2";
 import Sidebar from "./Barside";
 
 export default function HospitalProfile() {
-  const [HospitalData, setHospitalData] = useState([]);
+ 
+  const [HospitalData, setHospitalData] = useState({
+    id: "",
+    name: "",
+    region: "",
+    email: "",
+    img: ""
+  });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.post("/getHospitalDataByUserMail");
+       
+        const hospitaldd = response.data;
+        const parsedData = JSON.parse(hospitaldd.data);
+
+      // Assuming the response contains an array of objects, get the first object
+      const firstHospital = parsedData[0];
+        console.log("assoil", firstHospital);
+
+        setHospitalData({
+          id: firstHospital.id,
+          name: firstHospital.name,
+          region: firstHospital.region,
+          email: firstHospital.email,
+          img: firstHospital.imagePath
+        });
+        // setHospitalData(hospitaldd.data);
+      } catch (error) {
+        console.error("Error fetching hospital data:", error);
+      }
+    };
+    fetchData();
+  }, []);
   
-  useEffect(() => { 
-    const fetchData = async () => { 
-      await axios.post("/getHospitalDataByEmail")
-      .then((response) => {
-          setHospitalData(response.data);
-         }).catch((error) => 
-         console.error("Error fetching medecin data:", error)
-          ); }; fetchData(); },
-        []);
-
   
   const [toggleBtn, setToggleBtn] = useState(true);
   const toggle = () => setToggleBtn((val) => !val);

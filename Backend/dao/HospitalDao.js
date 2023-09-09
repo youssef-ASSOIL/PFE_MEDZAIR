@@ -56,11 +56,31 @@ class HospitalDao {
         const querySnapshot = await getDocs(q);
         const hospitals = [];
         querySnapshot.forEach((doc) => {
+          if (doc.exists()) {
           hospitals.push({ id: doc.id, ...doc.data() });
+          }else{
+            console.log("Doesn't exist mail");
+          }
+
         });
         return hospitals;
       } catch (error) {
         console.error("Error searching hospitals:", error);
+        throw error;
+      }
+    }
+
+    static async searchHopitalInfo(mailUser) {
+      try {
+        const q = query(hospitalCol, where("email", "==", mailUser));
+        const querySnapshot = await getDocs(q);
+        const hopitals = [];
+        querySnapshot.forEach((doc) => {
+          hopitals.push({ id: doc.id, ...doc.data() });
+        });
+        return hopitals;
+      } catch (error) {
+        console.error("Error searching medics:", error);
         throw error;
       }
     }

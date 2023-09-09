@@ -22,6 +22,7 @@ import SupprimerMedecin from './components/Administrateur/SupprimerMedecin';
 import ListerHospitals from './components/Administrateur/ListerHospitals';
 import ListerMedcin from './components/Administrateur/ListerMedcin';
 import SignInAdmin from './components/Administrateur/SignInAdmin';
+import LoginDemande from './components/Administrateur/LoginDemande';
 
 const App = () => {
 
@@ -48,6 +49,7 @@ const App = () => {
         <Route path='/ListerHospitals' element={<ListerHospitals/>}></Route> 
         <Route path='/ListerMedcin' element={<ListerMedcin/>}></Route> 
         <Route path='/SignInAdmin' element={<SignInAdmin/>}></Route> 
+        <Route path='/LoginDemande' element={<LoginDemande/>}></Route>
       </Routes>
     </div>
   );

@@ -58,10 +58,10 @@ export default function AjouterHospital() {
       <Navbar2 setToggle={toggle} />
         <SideBar2 toggleBtn={toggleBtn}/>
     <div className="add-hospital-container">
-    <h2>AjouterHospital</h2>
+    <h2>Ajouter Hospital</h2>
     <form className="add-hospital-form" onSubmit={handleSubmit}>
         <div>
-          <label>Name Hospital:</label>
+          <label>Nom Hospital:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
         <div>
@@ -79,7 +79,7 @@ export default function AjouterHospital() {
        
         </div>
         <div>
-          <label>Password:</label>
+          <label>Mot de pass:</label>
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <button type="submit">Add Hospital</button>

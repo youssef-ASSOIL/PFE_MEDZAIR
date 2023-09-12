@@ -39,7 +39,7 @@ const Navbar2 = ({ setToggle }) => {
         <li>
           
             <button className="meConnecterButton" onClick={handleDeConnectClick}>
-              Logout
+              Deconnecter
             </button>
           
         </li>

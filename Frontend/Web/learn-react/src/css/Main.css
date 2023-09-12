@@ -9,23 +9,177 @@
    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
+    
   }
   
   
   
-  body{
+   body{
+    background-color: #B3E8E5;
     background-image: url("../images/background.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-  }
-  
-  .centered-content {
-    color: #fff;
+    overflow-y: scroll; /* This will make the container vertically scrollable if the content overflows */
+    height: 110vh; /* Set the body height to 100% of the viewport height */
+    
+    text-align: center;
+   } 
+   .centered-content {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
   
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  } 
+  body .centered-content {
+    
+    margin-bottom: 15px;
+  }
+  .hello{
+    /* background-image: url("../images/back22.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;  */
+    /* background-color: #2F8F9D; */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width: 600px;
+    margin-left: 300px;
+    color: black;
+    border-radius: 10px;
+    /* text-shadow: 1px 1px 2px black;*/
+    padding: 5px ; 
+    margin-top: 120px;
+  }
+  .MedZairDef{
+    text-align: left;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 20px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    
+  }
+.med{
+  text-align: center;
+  font-weight: bold;
+  color: #2F8F9D;
+}
+  
+
+
+  /* HospitalLandingPage.css */
+
+/* Styles for the landing page container */
+.landing-page {
+   background-image: url("../images/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+    
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Styles for the header section */
+.header {
+  
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+}
+
+/* Styles for the logo */
+.logo {
+  max-width: 200px; /* Adjust the max-width as needed */
+}
+
+/* Styles for the social media icons */
+.social-icons {
+  font-size: 24px;
+}
+
+.social-icons a {
+  margin-right: 10px;
+  color: #333; /* Set your desired color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+  
+}
+
+.social-icons a:hover {
+  color: #0073e6;
+  text-shadow: 1px 1px 2px black;
+     /* Set your desired hover color */
+}
+
+/* Styles for the contact section */
+.contact-section {
+  
+  text-align: center;
+  margin-top: 20px;
+}
+
+.contact-section h1 {
+  font-size: 28px; /* Set your desired font size */
+  margin-bottom: 20px;
+}
+
+.contact-section p {
+  font-size: 16px; /* Set your desired font size */
+  margin: 10px 0;
+}
+
+/* HospitalLandingPage.css */
+
+/* ... (styles précédents) */
+
+/* Styles for the centered content */
+.centered-content {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.centered-content h1 {
+  font-size: 36px; /* Réglez la taille de la police comme vous le souhaitez */
+  color: #333;
+   /* Réglez la couleur de la police comme vous le souhaitez */
+}
+/* Styles for the testimonials section */
+.testimonials {
+  text-align: center;
+  margin: 20px 20px;
+  padding: 20px;
+  background-color: aliceblue;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.testimonials h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Styles for the testimonial items */
+.testimonial-item {
+  padding: 20px;
+}
+
+/* Styles for the testimonial text */
+.testimonial-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* Styles for the testimonial author */
+.testimonial-author {
+  font-size: 14px;
+  color: #888;
+}

@@ -72,13 +72,13 @@ export default function ModifierHospital() {
         <label>Email:</label>
         <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         <button type="button" onClick={handleSearch}>
-              Search Doctor
+              Rechercher D'un Medecin
         </button>
       </div>
       {hospital && (
         <div className="hospital-details">
-          <h3>Hospital Details:</h3>
-          <p>Name: {hospital.name}</p>
+          <h3>Hôpital Détail:</h3>
+          <p>Nom: {hospital.name}</p>
           <p>Region: {hospital.region}</p>
           <p>Email: {hospital.email}</p>
           {/* Display other hospital details */}
@@ -86,18 +86,18 @@ export default function ModifierHospital() {
       )}
       {hospital && (
         <div className="modify-region">
-          <label>New Region:</label>
+          <label>nouveau Region:</label>
           <input type="text" value={newRegion} onChange={(e) => setNewRegion(e.target.value)} />
-          <label>imagePath:</label>
+          <label>Lien d'image:</label>
           <input type="text" value={newImagePath} onChange={(e) => setnewImagePath(e.target.value)} />
-          <label>New Name:</label>
+          <label>nouveau Nom:</label>
           <input type="text" value={newName} onChange={(e) => setnewName(e.target.value)} />
           
         </div>
         
       )}
       <button type="submit" disabled={!hospital}>
-        Modify Hospital
+        Modifier Hospital
       </button>
     </form>
   </div>
